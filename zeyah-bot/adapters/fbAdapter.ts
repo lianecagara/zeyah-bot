@@ -127,6 +127,7 @@ export class Ws3FBAdapter extends ZeyahAdapter {
       };
 
       process.nextTick(async () => {
+        Object.assign(form, memoryForm);
         let normalBody =
           form.body instanceof ZeyahElement
             ? (typeof facadeIO.WrapperFC === "function"
@@ -143,20 +144,24 @@ export class Ws3FBAdapter extends ZeyahAdapter {
         const validForm: MessageObject = {
           body: normalBody,
           attachment: (Array.isArray(form.attachments)
-            ? form.attachments
+            ? [...form.attachments]
             : [form.attachments]
           )
             .map((i) => i?.stream)
             .filter(Boolean) as ReadStream[],
         };
-        (
-          (this.internalAPI.sendMessage as API["sendMessageMqtt"])(
-            validForm,
-            form.thread,
-            form.replyTo,
-          ) as unknown as Promise<Message>
-        )
-          .then((info) => {
+        if (validForm.attachment.length === 0) {
+          delete validForm.attachment;
+        }
+        const res = (this.internalAPI.sendMessage as API["sendMessageMqtt"])(
+          validForm,
+          form.thread,
+          form.replyTo,
+          true as any,
+        ) as unknown as Promise<Message>;
+        res.then(
+          (info) => {
+            console.log("dispfb");
             return dispatched.__resolveResponse(
               {
                 messageID: info.messageID,
@@ -165,10 +170,12 @@ export class Ws3FBAdapter extends ZeyahAdapter {
               },
               null,
             );
-          })
-          .catch((err) => {
-            return dispatched.__resolveResponse(null, err);
-          });
+          },
+          (e) => {
+            console.log("dispfberr");
+            return dispatched.__resolveResponse(null, e);
+          },
+        );
       });
       return dispatched;
     } catch (error) {
