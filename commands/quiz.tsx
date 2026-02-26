@@ -33,7 +33,7 @@ export const QuizEvent = module.register({
     const letters = ["A", "B", "C", "D"];
 
     const formatted = options
-      .map((opt, i) => `${letters[i]}. ${opt}`)
+      .map((opt, i) => utils.cleanAnilistHTML(`${letters[i]}. ${opt}`))
       .join("\n");
 
     const dispatched = await zeyahIO.reply(
@@ -45,7 +45,7 @@ export const QuizEvent = module.register({
             <Choice>🎯 Knowledge Test</Choice>
           </Random>
         </Bold>
-        <Breaks n={2} />❓ {q.question}
+        <Breaks n={2} />❓ {utils.cleanAnilistHTML(q.question)}
         <Breaks n={1} />
         {formatted}
         <Breaks n={2} />

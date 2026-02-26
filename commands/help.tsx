@@ -12,6 +12,7 @@ import {
 } from "@zeyah-bot/components";
 import { findCommand } from "@zeyah-bot/registry";
 import { getCallableCommands, getRoleName } from "@zeyah-bot/registry";
+import { PageSlicer } from "@zeyah-bot/utils";
 
 export const Help = module.register({
   emoji: "🧰",
@@ -27,11 +28,35 @@ export const Help = module.register({
     const commands = getCallableCommands().sort((a, b) =>
       a.name.localeCompare(b.name),
     );
-    if (args.length === 0) {
+    const page = Number(args.at(0)) || NaN;
+    if (args.length === 0 || !isNaN(page)) {
+      const slicer = new PageSlicer(commands, 10);
+      const pageData = slicer.page(page);
+      const pageIndicator = (
+        <>
+          <Italic>
+            Page {pageData.page + 1} of {pageData.totalPages}
+          </Italic>
+          <br />
+          <Italic>Total of {pageData.totalItems} commands.</Italic>
+          <br />
+          <Bold>Next Page: </Bold>{" "}
+          <Code>
+            {currentPrefix}
+            {commandName} {pageData.page + 1}
+          </Code>
+          <br />
+          <Bold>Command Info: </Bold>{" "}
+          <Code>
+            {currentPrefix}
+            {commandName} {"<command_name>"}
+          </Code>
+        </>
+      );
       const list = (
         <>
           <JoinNode by={"\n\n"}>
-            {commands.map((cmd) => {
+            {pageData.items.map((cmd) => {
               const resolve = findCommand(cmd.name);
               const isNotLatest = resolve !== cmd;
               return (
@@ -61,6 +86,10 @@ export const Help = module.register({
           <Divider break />
 
           {list}
+
+          <Divider break />
+
+          {pageIndicator}
         </>,
       );
     } else {

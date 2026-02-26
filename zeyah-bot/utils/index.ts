@@ -835,3 +835,69 @@ export class ReflectiveMap<T extends AnyObject> implements Map<
 
   [Symbol.toStringTag]: string = "StructuredMap";
 }
+
+export class PageSlicer<T> {
+  private readonly data: readonly T[];
+  private readonly perPage: number;
+
+  constructor(data: readonly T[], perPage: number) {
+    if (!Number.isInteger(perPage) || perPage <= 0) {
+      throw new Error("perPage must be a positive integer");
+    }
+
+    this.data = data;
+    this.perPage = perPage;
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.data.length / this.perPage));
+  }
+
+  get totalItems(): number {
+    return this.data.length;
+  }
+
+  private normalizePage(input: string | number): number {
+    const parsed =
+      typeof input === "string" ? Number.parseInt(input, 10) : input;
+
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      return 0;
+    }
+
+    return Math.floor(parsed);
+  }
+
+  private clampPage(page: number): number {
+    if (page >= this.totalPages) {
+      return this.totalPages - 1;
+    }
+    return page;
+  }
+
+  public slice(page: string | number): T[] {
+    const normalized = this.normalizePage(page);
+    const safePage = this.clampPage(normalized);
+
+    const start = safePage * this.perPage;
+    const end = start + this.perPage;
+
+    return this.data.slice(start, end);
+  }
+
+  public page(page: string | number) {
+    const normalized = this.normalizePage(page);
+    const safePage = this.clampPage(normalized);
+
+    const start = safePage * this.perPage;
+    const end = start + this.perPage;
+
+    return {
+      page: safePage,
+      perPage: this.perPage,
+      totalPages: this.totalPages,
+      totalItems: this.totalItems,
+      items: this.data.slice(start, end),
+    };
+  }
+}
