@@ -57,11 +57,70 @@ Tired of handling replies in a separate `onReply` method and losing context? Zey
 - A Facebook account or Discord Bot Token.
 
 ### 2. Installation
+### 🚧 Recommended Workflow
+
+#### 1. Clone the repository
+
 ```bash
 git clone https://github.com/lianecagara/zeyah-bot
 cd zeyah-bot
+````
+
+If you want the project as a **fresh independent project** (no upstream tracking), remove git history:
+
+```bash
+rm -rf .git
+```
+
+This is useful if you are building your own project based on zeyah-bot.
+
+---
+
+#### 2. Install dependencies
+
+```bash
 npm install
 ```
+
+---
+
+#### 3. Important — Run updater after clone
+
+Run the updater once so your local copy is synchronized with upstream changes:
+
+```bash
+npm run update
+```
+
+👉 This is highly recommended to avoid missing framework fixes or patches.
+
+---
+
+#### 4. Create your own repository (optional)
+
+If you want to turn this into a new project repository:
+
+```bash
+git init
+git add .
+git commit -m "Initial Zeyah Bot setup"
+```
+
+Then push to your repository:
+
+```bash
+git remote add origin <your-repo-url>
+git branch -M master
+git push -u origin master
+```
+
+---
+
+#### ⚠️ Notes
+
+* Keep the updater script available for future framework updates.
+* Avoid modifying core framework files unless you understand merge behavior.
+* Pull upstream updates before performing major customization.
 
 ### 3. Platform Setup
 - **Discord**: Add `DISCORD_TOKEN` to your `.env` file.

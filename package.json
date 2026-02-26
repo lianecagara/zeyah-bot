@@ -9,7 +9,8 @@
   "scripts": {
     "start": "npm run check && tsx zeyah-bot/main",
     "start-nocheck": "tsx zeyah-bot/main",
-    "check": "tsc --project tsconfig.commands.json"
+    "check": "tsc --project tsconfig.commands.json",
+    "update": "bash updater.sh"
   },
   "devDependencies": {
     "@types/gradient-string": "^1.1.6",
