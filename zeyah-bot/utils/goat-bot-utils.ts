@@ -2,6 +2,11 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import Stream from "node:stream";
 import cheerio from "cheerio";
+/**
+ * **getStreamFromUrl()** fetches a file from a URL as a readable stream.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function getStreamFromUrl(
   url: string,
   pathName: string,
@@ -60,6 +65,11 @@ export interface FullGetStreamResult {
   fullResponse: AxiosResponse<Stream>;
   extension: string;
 }
+/**
+ * **getStreamFromUrlFull()** fetches a file from a URL and returns detailed stream metadata.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function getStreamFromUrlFull(
   url: string,
   pathName: string,
@@ -119,12 +129,22 @@ export async function getStreamFromUrlFull(
 import mimeDB from "mime-db";
 export { getStreamFromUrl as getStreamFromURL };
 
+/**
+ * **getExtFromMimeType()** returns the file extension associated with a MIME type.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function getExtFromMimeType(mimeType = "") {
   return Reflect.has(mimeDB, mimeType)
     ? ((Reflect.get(mimeDB, mimeType)?.extensions ?? [])[0] ?? "unknow")
     : "unknow";
 }
 
+/**
+ * **getExtFromUrl()** extracts the file extension from a Facebook CDN URL.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function getExtFromUrl(url: string = "") {
   if (!url || typeof url !== "string")
     throw new Error("The first argument (url) must be a string");
@@ -134,6 +154,11 @@ export function getExtFromUrl(url: string = "") {
   return fileName.slice(fileName.lastIndexOf(".") + 1);
 }
 
+/**
+ * **removeHomeDir()** removes the current working directory from a file path.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function removeHomeDir(fullPath: string) {
   if (!fullPath || typeof fullPath !== "string")
     throw new Error("The first argument (fullPath) must be a string");
@@ -142,6 +167,11 @@ export function removeHomeDir(fullPath: string) {
   return fullPath;
 }
 
+/**
+ * **translateAPI()** translates text using the Google Translate API.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function translateAPI(text: string, lang: string) {
   try {
     const res = await axios.get(
@@ -162,6 +192,11 @@ export async function translateAPI(text: string, lang: string) {
   }
 }
 
+/**
+ * **findUid()** retrieves the Facebook UID associated with a profile link.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function findUid(link: string) {
   try {
     const response = await axios.post(
@@ -234,6 +269,11 @@ export async function getStreamsFromAttachment(attachments: DuckAttachments) {
   return streams;
 }
 
+/**
+ * **shortenURL()** shortens a URL using TinyURL.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function shortenURL(url: string) {
   try {
     const result = await axios.get(`https://tinyurl.com/api-create.php?`, {
@@ -250,6 +290,11 @@ export async function shortenURL(url: string) {
   }
 }
 
+/**
+ * **uploadImgbb()** uploads an image to ImgBB (either via URL or Stream).
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function uploadImgbb(file: string | Stream) {
   let type = "file";
   try {
@@ -456,6 +501,11 @@ export namespace IMGBB {
   }
 }
 
+/**
+ * **uploadZippyshare()** uploads a file to Zippyshare.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function uploadZippyshare(stream: Stream) {
   const res = await axios({
     method: "POST",
@@ -507,6 +557,11 @@ export function lengthWhiteSpacesStartLine(text: string) {
   return length;
 }
 
+/**
+ * **convertTime()** converts milliseconds into a human-readable duration string.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function convertTime(
   miliSeconds: number,
   replaceSeconds = "s",
@@ -765,6 +820,11 @@ export const WordCleanerDict = [
   " ",
 ];
 
+/**
+ * **translate()** translates complex text while preserving non-translatable parts (e.g., tags).
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function translate(text: string, lang: string) {
   const word = WordCleanerDict;
   if (typeof text !== "string")
