@@ -24,9 +24,11 @@
       "@zeyah-utils": ["./zeyah-bot/utils"],
       "@commands/*": ["./commands/*"],
       "@config": ["./zeyah.config"],
-      "@kayelaa/zeyah": ["../zeyah/dist/index"],
-      "@kayelaa/zeyah/jsx-runtime": ["../zeyah/dist/jsx-runtime"],
-      "@package": ["./package.json"]
+      "@package": ["./package.json"],
+      "@kayelaa/zeyah": ["./node_modules/@kayelaa/zeyah/dist/index"],
+      "@kayelaa/zeyah/jsx-runtime": [
+        "./node_modules/@kayelaa/zeyah/dist/jsx-runtime"
+      ]
     },
     "types": ["node"]
   },

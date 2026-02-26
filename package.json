@@ -18,6 +18,7 @@
     "jiti": "^2.6.1"
   },
   "dependencies": {
+    "@kayelaa/zeyah": "^0.1.1",
     "@nea-liane/styler": "^1.2.6",
     "axios": "^1.13.5",
     "chalk": "^4.1.2",
