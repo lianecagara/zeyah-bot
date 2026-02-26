@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "."
+  },
+  "include": [
+    "commands/**/*.ts",
+    "commands/**/*.tsx",
+    "checked/**/*.tsx",
+    "checked/**/*.ts",
+    "zeyah.config.ts",
+    "adapterSetup.ts",
+    "zeyah-bot/global.d.ts",
+    "zeyah-bot/main.ts"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "checkJs": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@kayelaa/zeyah",
+    "strictNullChecks": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "lib": ["ES2024"],
+    "strictFunctionTypes": true,
+    "noImplicitAny": true,
+    "rootDir": "./",
+    "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@zeyah-bot/*": ["./zeyah-bot/*"],
+      "@zeyah-utils/*": ["./zeyah-bot/utils/*"],
+      "@zeyah-utils": ["./zeyah-bot/utils"],
+      "@commands/*": ["./commands/*"],
+      "@config": ["./zeyah.config"],
+      "@kayelaa/zeyah": ["../zeyah/dist/index"],
+      "@kayelaa/zeyah/jsx-runtime": ["../zeyah/dist/jsx-runtime"],
+      "@package": ["./package.json"]
+    },
+    "types": ["node"]
+  },
+  "include": ["**/*"],
+  "exclude": ["dist", "commands/commands.d.ts"]
+}
