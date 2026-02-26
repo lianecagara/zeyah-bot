@@ -145,7 +145,7 @@ export class Ws3FBAdapter extends ZeyahAdapter {
             ? form.attachments
             : [form.attachments]
           )
-            .map((i) => i.stream)
+            .map((i) => i?.stream)
             .filter(Boolean) as ReadStream[],
         };
         (this.internalAPI.sendMessage as API["sendMessageMqtt"])(
@@ -157,7 +157,7 @@ export class Ws3FBAdapter extends ZeyahAdapter {
               {
                 messageID: info.messageID,
                 threadID: info.threadID,
-                timestamp: new Date(info.timestamp).getTime(),
+                timestamp: new Date(info.timestamp ?? Date.now()).getTime(),
               },
               err,
             );
