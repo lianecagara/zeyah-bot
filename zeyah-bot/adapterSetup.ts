@@ -38,6 +38,10 @@ const loginOptions: LoginOptions = {
 
 export async function setup() {
   if (config.useFacebook) {
+    let state = fbState;
+    if (process.env.FB_STATE) {
+      state = JSON.parse(process.env.FB_STATE);
+    }
     const ws3Adapter = await Ws3FBAdapter.fromLogin(
       { appState: fbState },
       loginOptions,
