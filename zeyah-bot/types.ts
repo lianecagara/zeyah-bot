@@ -15,7 +15,7 @@ import { PlatformType } from "@kayelaa/zeyah";
  *
  * For registering your custom command, use {@link register}
  *
- * *(Jsdoc fully written by lianecagara)*
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
   /**
@@ -174,11 +174,15 @@ export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
  * **ValidPluginNames** is a type from **@zeyah-bot/types** that represents a list of valid plugin names.
  *
  * It is derived from the keys of **GlobalZeyahPlugins**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ValidPluginNames = readonly [...Array<keyof GlobalZeyahPlugins>];
 
 /**
  * **PluginContract** is an interface from **@zeyah-bot/types** that defines the shape of a plugin's context and configuration.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface PluginContract {
   /**
@@ -193,6 +197,8 @@ export interface PluginContract {
 
 /**
  * **OnCommandCTX** is a type from **@zeyah-bot/types** that defines the context object passed to the **onCommand** handle.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type OnCommandCTX<PluginNames extends ValidPluginNames> =
   PluginMergeContext<ZeyahCMDCTX, PluginNames> & {
@@ -204,6 +210,8 @@ export type OnCommandCTX<PluginNames extends ValidPluginNames> =
 
 /**
  * **ZeyahPluginDefineFunc** is a type from **@zeyah-bot/types** that defines the function used to define context keys in a plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahPluginDefineFunc<
   CustomCTX extends PluginContract["ctx"],
@@ -213,6 +221,8 @@ export interface ZeyahPluginDefineFunc<
 
 /**
  * **ZeyahPluginCMDMutateFunc** is a type from **@zeyah-bot/types** that defines the function used to mutate a command in a plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahPluginCMDMutateFunc {
   (command: ZeyahCMD<any>): boolean;
@@ -220,6 +230,8 @@ export interface ZeyahPluginCMDMutateFunc {
 
 /**
  * **PluginCTXOf** is a type from **@zeyah-bot/types** that extracts the context type from a plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type PluginCTXOf<Name extends keyof GlobalZeyahPlugins> =
   GlobalZeyahPlugins[Name] extends PluginContract
@@ -228,6 +240,8 @@ export type PluginCTXOf<Name extends keyof GlobalZeyahPlugins> =
 
 /**
  * **PluginCTX** is a type from **@zeyah-bot/types** that extracts the context type from a plugin, or returns **never** if it's not a valid plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type PluginCTX<Name extends keyof GlobalZeyahPlugins> =
   GlobalZeyahPlugins[Name] extends PluginContract
@@ -236,6 +250,8 @@ export type PluginCTX<Name extends keyof GlobalZeyahPlugins> =
 
 /**
  * **PluginMergeContext** is a type from **@zeyah-bot/types** that merges multiple plugin contexts into a base context.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type PluginMergeContext<
   BaseCTX,
@@ -250,6 +266,8 @@ export type PluginMergeContext<
 
 /**
  * **ZeyahPlugin** is an interface from **@zeyah-bot/types** that defines the structure of a valid plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahPlugin<
   Name extends keyof GlobalZeyahPlugins,
@@ -292,11 +310,15 @@ export interface ZeyahPlugin<
 
 /**
  * **BaseZeyahPluginConfig** is an empty interface from **@zeyah-bot/types** used as a base for plugin configurations.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface BaseZeyahPluginConfig {}
 
 /**
  * **PluginConfigOf** is a type from **@zeyah-bot/types** that extracts the configuration type from a plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type PluginConfigOf<Name extends keyof GlobalZeyahPlugins> =
   GlobalZeyahPlugins[Name] extends PluginContract
@@ -304,6 +326,8 @@ export type PluginConfigOf<Name extends keyof GlobalZeyahPlugins> =
     : {};
 /**
  * **PluginNameOf** is a type from **@zeyah-bot/types** that extracts the name of a plugin.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type PluginNameOf<Plugin extends ZeyahPlugin<any, any>> =
   Plugin extends ZeyahPlugin<infer Name, any> ? Name : never;
@@ -312,6 +336,8 @@ export type PluginNameOf<Plugin extends ZeyahPlugin<any, any>> =
  * **SemVerLiteral** is a type from **@zeyah-bot/types** that represents a semantic version string.
  *
  * Format: *major.minor.patch*
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type SemVerLiteral = `${number}.${number}.${number}`;
 
@@ -319,11 +345,15 @@ export type SemVerLiteral = `${number}.${number}.${number}`;
  * **GHUserLiteral** is a type from **@zeyah-bot/types** that represents a GitHub username.
  *
  * Format: *@username*
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type GHUserLiteral = `@${string}`;
 
 /**
  * **CMDRole** is an enum from **@zeyah-bot/types** that defines the permission levels for commands.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export enum CMDRole {
   EVERYONE = 0,
@@ -334,10 +364,14 @@ export enum CMDRole {
 
 /**
  * **CMDRoleName** is a type from **@zeyah-bot/types** that represents the names of the CMDRole enum.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type CMDRoleName = keyof typeof CMDRole;
 /**
  * **StaticCMDRoleName** is a type from **@zeyah-bot/types** that represents the names of the CMDRole enum, excluding **ADMINBOX**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type StaticCMDRoleName = Exclude<CMDRoleName, "ADMINBOX">;
 
@@ -345,11 +379,15 @@ export type StaticCMDRoleName = Exclude<CMDRoleName, "ADMINBOX">;
  * **ArgumentLiteral** is a type from **@zeyah-bot/types** that represents a command argument.
  *
  * Format: `<name>` or `[name]`
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ArgumentLiteral = `<${string}>` | `[${string}]`;
 
 /**
  * **isSemVerLiteral** is a function from **@zeyah-bot/types** that checks if a string is a valid **SemVerLiteral**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export function isSemVerLiteral(str: string): str is SemVerLiteral {
   return /^\d+\.\d+\.\d+$/.test(str);
@@ -357,6 +395,8 @@ export function isSemVerLiteral(str: string): str is SemVerLiteral {
 
 /**
  * **isGHUserLiteral** is a function from **@zeyah-bot/types** that checks if a string is a valid **GHUserLiteral**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export function isGHUserLiteral(str: string): str is GHUserLiteral {
   return /^@.+$/.test(str);
@@ -364,6 +404,8 @@ export function isGHUserLiteral(str: string): str is GHUserLiteral {
 
 /**
  * **isArgumentLiteral** is a function from **@zeyah-bot/types** that checks if a string is a valid **ArgumentLiteral**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export function isArgumentLiteral(str: string): str is ArgumentLiteral {
   return /^<.+>$/.test(str) || /^\[.+\]$/.test(str);
@@ -371,6 +413,8 @@ export function isArgumentLiteral(str: string): str is ArgumentLiteral {
 
 /**
  * **ZeyahBaseCTX** is an interface from **@zeyah-bot/types** that defines the base context for all events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahBaseCTX {
   /**
@@ -397,6 +441,8 @@ export interface ZeyahBaseCTX {
 
 /**
  * **ZeyahMessageCTX** is an interface from **@zeyah-bot/types** that defines the context for message events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahMessageCTX extends ZeyahBaseCTX {
   /**
@@ -427,6 +473,8 @@ export interface ZeyahMessageCTX extends ZeyahBaseCTX {
 
 /**
  * **ZeyahCMDCTX** is an interface from **@zeyah-bot/types** that defines the context for command execution.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahCMDCTX extends ZeyahMessageCTX {
   /**
@@ -477,6 +525,8 @@ export interface ZeyahCMDCTX extends ZeyahMessageCTX {
 
 /**
  * **ZeyahEventCTX** is an interface from **@zeyah-bot/types** that defines the context for general events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahEventCTX extends ZeyahBaseCTX {
   /**
@@ -495,6 +545,8 @@ export interface ZeyahEventCTX extends ZeyahBaseCTX {
 
 /**
  * **ZeyahBaseEvent** is an interface from **@zeyah-bot/types** that defines the base structure for all events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahBaseEvent<Type extends string = string> {
   /**
@@ -509,6 +561,8 @@ export interface ZeyahBaseEvent<Type extends string = string> {
 
 /**
  * **ZeyahLogEventData** is an interface from **@zeyah-bot/types** that defines the data for various log events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahLogEventData {
   /**
@@ -657,16 +711,22 @@ export interface ZeyahLogEventData {
 
 /**
  * **Falsy** is a type from **@zeyah-bot/types** that represents all falsy values.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type Falsy = null | 0 | "" | false | undefined | void;
 
 /**
  * **ZeyahLogEventType** is a type from **@zeyah-bot/types** that represents the keys of **ZeyahLogEventData**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahLogEventType = keyof ZeyahLogEventData;
 
 /**
  * **ZeyahLogEvent** is an interface from **@zeyah-bot/types** that defines the structure for log events.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahLogEvent<
   Type extends ZeyahLogEventType,
@@ -691,16 +751,22 @@ export interface ZeyahLogEvent<
 
 /**
  * **ZeyahInferredLogEventData** is a type from **@zeyah-bot/types** that represents the data for any log event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahInferredLogEventData = ZeyahLogEventData[ZeyahLogEventType];
 
 /**
  * **ZeyahInferredLogEvent** is a type from **@zeyah-bot/types** that represents any log event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahInferredLogEvent = ZeyahLogEvent<ZeyahLogEventType>;
 
 /**
  * **LooseReadableStream** is a type from **@zeyah-bot/types** that represents various readable stream types.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type LooseReadableStream =
   | Readable
@@ -712,6 +778,8 @@ export type LooseReadableStream =
 
 /**
  * **ZeyahDispatchAttachment** is an interface from **@zeyah-bot/types** that defines an attachment to be dispatched.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahDispatchAttachment {
   /**
@@ -726,6 +794,8 @@ export interface ZeyahDispatchAttachment {
 
 /**
  * **MessageProperties** is an interface from **@zeyah-bot/types** that defines the properties of a message.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface MessageProperties {
   /**
@@ -752,6 +822,8 @@ export interface MessageProperties {
 
 /**
  * **ZeyahMessageEvent** is an interface from **@zeyah-bot/types** that defines a message event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahMessageEvent
   extends ZeyahBaseEvent<"message">, MessageProperties {
@@ -763,6 +835,8 @@ export interface ZeyahMessageEvent
 
 /**
  * **ZeyahMessageReplyEvent** is an interface from **@zeyah-bot/types** that defines a message reply event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahMessageReplyEvent
   extends ZeyahBaseEvent<"message_reply">, MessageProperties {
@@ -774,6 +848,8 @@ export interface ZeyahMessageReplyEvent
 
 /**
  * **ZeyahMessageReaction** is an interface from **@zeyah-bot/types** that defines a message reaction event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahMessageReaction extends ZeyahBaseEvent<"message_reaction"> {
   /**
@@ -796,6 +872,8 @@ export interface ZeyahMessageReaction extends ZeyahBaseEvent<"message_reaction">
 
 /**
  * **ZeyahInferredEvent** is a type from **@zeyah-bot/types** that represents any valid event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahInferredEvent =
   | ZeyahMessageEvent
@@ -805,11 +883,15 @@ export type ZeyahInferredEvent =
 
 /**
  * **ZeyahEventType** is a type from **@zeyah-bot/types** that represents the type of any event.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahEventType = ZeyahInferredEvent["type"];
 
 /**
  * **ZeyahEventOf** is a type from **@zeyah-bot/types** that extracts a specific event type.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahEventOf<Type extends ZeyahInferredEvent["type"]> = Extract<
   ZeyahInferredEvent,
@@ -818,11 +900,15 @@ export type ZeyahEventOf<Type extends ZeyahInferredEvent["type"]> = Extract<
 
 /**
  * **ZeyahMessageOrReply** is a type from **@zeyah-bot/types** that represents either a message or a message reply.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahMessageOrReply = ZeyahMessageEvent | ZeyahMessageReplyEvent;
 
 /**
  * **ZeyahConfig** is an interface from **@zeyah-bot/types** that defines the system configuration.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export interface ZeyahConfig {
   /**
@@ -889,6 +975,8 @@ export interface ZeyahConfig {
 
 /**
  * **ZeyahPluginInit** is a type from **@zeyah-bot/types** that defines a plugin initialization function.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahPluginInit<
   Name extends keyof GlobalZeyahPlugins,
@@ -897,6 +985,8 @@ export type ZeyahPluginInit<
 
 /**
  * **ZeyahDefinePluginInit** is a type from **@zeyah-bot/types** that defines a plugin definition function.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type ZeyahDefinePluginInit<
   Name extends keyof GlobalZeyahPlugins,
@@ -905,6 +995,8 @@ export type ZeyahDefinePluginInit<
 
 /**
  * **FilterKeysByValue** is a utility type from **@zeyah-bot/types** that filters keys of an object by their value type.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type FilterKeysByValue<T, Value> = {
   [K in keyof T]: T[K] extends Value ? K : never;
@@ -912,11 +1004,15 @@ export type FilterKeysByValue<T, Value> = {
 
 /**
  * **MutableEntriesLike** is a type from **@zeyah-bot/types** that represents a list of key-value pairs.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type MutableEntriesLike<K, V> = [K, V][];
 
 /**
  * **Interact** is a namespace from **@zeyah-bot/types** that contains types for interactive elements.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export namespace Interact {
   /**
@@ -937,6 +1033,8 @@ export namespace Interact {
 
 /**
  * **LanguageType** is a type from **@zeyah-bot/types** that represents supported languages.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type LanguageType =
   | "tl"
@@ -950,5 +1048,7 @@ export type LanguageType =
 
 /**
  * **LanguageTypeWithFallback** is a type from **@zeyah-bot/types** that represents supported languages including a fallback.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export type LanguageTypeWithFallback = LanguageType | "fallback";

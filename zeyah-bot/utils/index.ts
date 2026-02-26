@@ -5,38 +5,33 @@
 // --------------------
 
 /**
- * Clamp a number between a min and max.
- * @param num The number to clamp.
- * @param min Minimum allowed value.
- * @param max Maximum allowed value.
- * @returns Clamped number.
+ * **clamp()** restricts a number between a minimum and maximum value.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const clamp = (num: number, min: number, max: number): number =>
   Math.min(Math.max(num, min), max);
 
 /**
- * Get a random integer between min and max (inclusive).
- * @param min Minimum integer.
- * @param max Maximum integer.
- * @returns Random integer.
+ * **randomInt()** returns a random integer between **min** and **max** (inclusive).
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const randomInt = (min: number, max: number): number =>
   Math.floor(random56Bit() * (max - min + 1)) + min;
 
 /**
- * Get a random float between min and max.
- * @param min Minimum float.
- * @param max Maximum float.
- * @returns Random float.
+ * **randomFloat()** returns a random floating-point number between **min** and **max**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const randomFloat = (min: number, max: number): number =>
   random56Bit() * (max - min) + min;
 
 /**
- * Convert a value to a percentage of a total.
- * @param value The part value.
- * @param total The total value.
- * @returns Percentage (0-100).
+ * **percent()** converts a value to its percentage relative to a total.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const percent = (value: number, total: number): number =>
   (value / total) * 100;
@@ -46,16 +41,16 @@ export const percent = (value: number, total: number): number =>
 // --------------------
 
 /**
- * Pick a random element from an array.
- * @param arr The array to pick from.
- * @returns A random element.
+ * **pickRandom()** selects a random element from an array.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const pickRandom = <T>(arr: T[]): T => arr[randomInt(0, arr.length - 1)];
 
 /**
- * Shuffle an array (Fisher–Yates algorithm) and return a new array.
- * @param arr The array to shuffle.
- * @returns Shuffled array.
+ * **shuffle()** shuffles an array using the **Fisher–Yates** algorithm and returns a new array.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const shuffle = <T>(arr: T[]): T[] => {
   const copy = [...arr];
@@ -67,11 +62,11 @@ export const shuffle = <T>(arr: T[]): T[] => {
 };
 
 /**
- * Remove an element from an array by index. Throws if index is -1.
- * @param arr The array.
- * @param index Index to remove.
- * @returns The removed element.
- * @throws If index is -1.
+ * **arrayYeet()** removes an element from an array by index.
+ *
+ * @throws Will throw an error if the index is -1.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const arrayYeet = <T>(arr: T[], index: number): T => {
   if (index === -1) throw new Error("Cannot remove element at index -1");
@@ -79,18 +74,17 @@ export const arrayYeet = <T>(arr: T[], index: number): T => {
 };
 
 /**
- * Clamp an array index safely.
- * @param arr Array to clamp.
- * @param idx Index.
- * @returns Element at clamped index.
+ * **clampArrayIndex()** safely accesses an array element by clamping the index.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const clampArrayIndex = <T>(arr: T[], idx: number): T =>
   arr[clamp(idx, 0, arr.length - 1)];
 
 /**
- * Pick a weighted random element from an array of {item, weight}.
- * @param items Items with weights.
- * @returns Chosen item.
+ * **randomChoiceWeighted()** picks a random element from an array based on weights.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const randomChoiceWeighted = <T>(
   items: { item: T; weight: number }[],
@@ -109,20 +103,19 @@ export const randomChoiceWeighted = <T>(
 // --------------------
 
 /**
- * Delay execution for a given number of milliseconds.
- * @param ms Milliseconds to wait.
- * @returns Promise that resolves after delay.
+ * **delay()** pauses execution for a specified number of milliseconds.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
- * Retry a promise-returning function a number of times with delay between attempts.
- * @param fn Async function to retry.
- * @param attempts Number of attempts (default 3).
- * @param delayMs Delay between retries in ms (default 500).
- * @returns The resolved value from fn.
- * @throws Last error if all attempts fail.
+ * **retry()** attempts to execute a promise-returning function multiple times until it succeeds or attempts are exhausted.
+ *
+ * @throws Will throw the last error if all attempts fail.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const retry = async <T>(
   fn: () => Promise<T>,
@@ -146,59 +139,57 @@ export const retry = async <T>(
 // --------------------
 
 /**
- * Capitalize the first letter of a string.
- * @param str Input string.
- * @returns Capitalized string.
+ * **capitalize()** capitalizes the first letter of a string.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const capitalize = (str: string): string =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
 /**
- * Truncate a string to a max length, adding "..." if truncated.
- * @param str Input string.
- * @param maxLen Maximum length.
- * @returns Truncated string.
+ * **truncate()** shortens a string to a maximum length and appends an ellipsis.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const truncate = (str: string, maxLen: number): string =>
   str.length > maxLen ? str.slice(0, maxLen - 3) + "..." : str;
 
 /**
- * Clamp a number between 0 and 1.
- * @param num The number to clamp.
- * @returns Clamped number between 0 and 1.
+ * **clamp01()** restricts a number between **0** and **1**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const clamp01 = (num: number): number => clamp(num, 0, 1);
 
 /**
- * Linearly interpolate between two numbers.
- * @param a Start value.
- * @param b End value.
- * @param t Interpolation factor (0–1).
- * @returns Interpolated value.
+ * **lerp()** performs linear interpolation between two values.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const lerp = (a: number, b: number, t: number): number =>
   a + (b - a) * t;
 
 /**
- * Pick a random value between two numbers using linear interpolation.
- * @param a Start value.
- * @param b End value.
- * @returns Random number between a and b.
+ * **randomLerp()** picks a random value between two numbers using linear interpolation.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const randomLerp = (a: number, b: number): number =>
   lerp(a, b, random56Bit());
 
 /**
- * Generate a biased random number between 0 and 1.
- * @param bias Value >0 to skew.
- *             - \> 1 biases toward 0,
- *             - \< 1 biases toward 1,
- *             - 1 = uniform.
- * @returns Biased random number between 0 and 1.
+ * **biasedRandom()** generates a biased random number between **0** and **1**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const biasedRandom = (bias: number = 1): number =>
   safePow(random56Bit(), bias);
 
+/**
+ * **safePow()** calculates a power while preserving the sign of the base.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function safePow(base: number, exponent: number): number {
   if (base === 0) return 0;
 
@@ -206,11 +197,9 @@ export function safePow(base: number, exponent: number): number {
 }
 
 /**
- * Pick a random value from an array, optionally biased with t (0–1).
- * @param arr Array to pick from.
- * @param t Optional interpolation factor (0–1) to bias which element is picked.
- *          - If omitted, picks uniformly.
- * @returns A chosen element from the array.
+ * **randomArrayValue()** picks a random value from an array, optionally biased by a factor **t**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const randomArrayValue = <T>(arr: T[], t?: number): T => {
   if (arr.length === 0) throw new Error("Cannot pick from empty array");
@@ -336,6 +325,11 @@ import Decimal from "decimal.js";
 import { randomBytes } from "node:crypto";
 import Stream from "node:stream";
 
+/**
+ * **parseBetDecimal()** parses a bet string (e.g., "1k", "50%", "all") into a **Decimal** value.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function parseBetDecimal(
   arg: string,
   totalBalance: Decimal = null,
@@ -605,6 +599,11 @@ const numFullSuffixes = [
   "Centicentillion", // 10^309
 ];
 
+/**
+ * **abbreviateNumberDecimal()** formats a large **Decimal** value into a human-readable abbreviated string.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function abbreviateNumberDecimal(
   value: Decimal,
   places = 3,
@@ -638,6 +637,11 @@ export type AwaitedTuple<T extends readonly unknown[]> = {
   [K in keyof T]: Awaited<T[K]>;
 };
 
+/**
+ * **parallel()** executes multiple promises concurrently and returns a tuple of their results.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function parallel<T extends readonly unknown[]>(
   ...tasks: T
 ): Promise<AwaitedTuple<T>> {
@@ -660,14 +664,29 @@ function random56RawDecimal(): Decimal {
   return value;
 }
 
+/**
+ * **random56BitD()** generates a random **Decimal** between **0** and **1** using 56 bits of entropy.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function random56BitD(): Decimal {
   return random56RawDecimal().div(d56_BIT);
 }
 
+/**
+ * **random56Bit()** generates a random number between **0** and **1** using 56 bits of entropy.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function random56Bit(): number {
   return random56RawDecimal().div(d56_NUM).toNumber();
 }
 
+/**
+ * **addCommas()** formats a **Decimal** value with commas as thousands separators.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function addCommas(value: Decimal): string {
   const str = value.toString();
 
@@ -678,6 +697,11 @@ export function addCommas(value: Decimal): string {
   return fracPart ? `${intWithComma}.${fracPart}` : intWithComma;
 }
 
+/**
+ * **unreachable()** is used to assert that a code path should never be reached.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function unreachable(x: never): never {
   throw new Error(`Unreachable state: ${x}`);
 }
@@ -698,6 +722,11 @@ export function range(
   step: number,
 ): Generator<number>;
 
+/**
+ * **range()** generates a sequence of numbers from start to end with a specified step.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function* range(a: number, b?: number, step = 1): Generator<number> {
   let start: number;
   let end: number;
@@ -725,6 +754,11 @@ export function* range(a: number, b?: number, step = 1): Generator<number> {
   }
 }
 
+/**
+ * **formatList()** joins a list of strings into a grammatically correct string (e.g., "A, B, and C").
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function formatList(items: string[], useOxfordComma = true): string {
   const len = items.length;
 
@@ -738,6 +772,11 @@ export function formatList(items: string[], useOxfordComma = true): string {
   return useOxfordComma ? `${rest}, and ${last}` : `${rest} and ${last}`;
 }
 
+/**
+ * **formatManilaDate()** formats a timestamp into a date string in the **Asia/Manila** timezone.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function formatManilaDate(timestamp: number): string {
   return new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Manila",
@@ -756,12 +795,22 @@ export * as BotpackUtils from "@zeyah-utils/botpack-utils";
 export * from "@zeyah-utils/goat-bot-utils";
 export * as GoatbotUtils from "@zeyah-utils/goat-bot-utils";
 
+/**
+ * **isEqual()** checks if a value matches any of the provided candidate values.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function isEqual<A, B extends A>(a: A, ...b: readonly B[]): a is B {
   return b.includes(a as B);
 }
 
 export type AnyObject = Record<string | number | symbol, any>;
 
+/**
+ * **ReflectiveMap** is a **Map** implementation that reflects its state onto an underlying object.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export class ReflectiveMap<T extends AnyObject> implements Map<
   keyof T,
   T[keyof T]
@@ -836,6 +885,11 @@ export class ReflectiveMap<T extends AnyObject> implements Map<
   [Symbol.toStringTag]: string = "StructuredMap";
 }
 
+/**
+ * **PageSlicer** is a utility class for paginating arrays of data.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export class PageSlicer<T> {
   private readonly data: readonly T[];
   private readonly perPage: number;
