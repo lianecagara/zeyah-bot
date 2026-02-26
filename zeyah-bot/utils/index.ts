@@ -335,7 +335,7 @@ export function parseBetDecimal(
   totalBalance: Decimal = null,
 ): Decimal {
   try {
-    if (arg === null || arg === undefined) return null;
+    if (arg === null || arg === undefined) return Decimal(NaN);
 
     const multipliers = numMultipliers;
 
@@ -366,7 +366,7 @@ export function parseBetDecimal(
 
     const match = clean.match(regex);
 
-    if (!match) return Decimal(0);
+    if (!match) return Decimal(NaN);
 
     const numberPart = new Decimal(match[1]);
     const abbreviation = match[2]?.toLowerCase();

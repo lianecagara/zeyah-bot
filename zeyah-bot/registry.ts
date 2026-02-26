@@ -72,6 +72,7 @@ export function register<T extends ValidPluginNames>(cmd: ZeyahCMD<T>): void {
   if (normalAuthor.length === 0) {
     throw new Error("Command must have at least one author.");
   }
+  cmd.pluginNames ??= [] as unknown as readonly [...T];
   if (cmd.pluginNames.some((i) => !Plugins.some((p) => p.pluginName === i))) {
     throw new Error(
       `Some plugins this command requests doesnt exist in our plugin registry.`,

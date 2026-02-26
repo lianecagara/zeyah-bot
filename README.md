@@ -125,7 +125,7 @@ export const BetCommand = module.register({
     const balance = await userDB.getPoints(); // Returns Decimal
     const amount = utils.parseBetDecimal(args[0], balance);
 
-    if (amount.lte(0) || amount.gt(balance)) {
+    if (amount.isNaN() ||amount.lte(0) || amount.gt(balance) || amount.gt(1e+6)) {
       return zeyahIO.reply(<>Invalid bet amount!</>);
     }
 
