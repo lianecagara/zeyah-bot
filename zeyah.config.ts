@@ -13,7 +13,7 @@ export default defineConfig({
   moderatorBot: [],
   prefixes: [process.env.PREFIX ?? "+"],
   useDiscord: true,
-  useFacebook: false,
+  useFacebook: process.env.FB_STATE ? true : false,
   discordToken: process.env.DISCORD_TOKEN ?? "",
   plugins: [sixSevenPlugin, menuHandlePlugin],
   pluginConfig: {
