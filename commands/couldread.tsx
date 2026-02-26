@@ -1,4 +1,3 @@
-import Zeyah, { CassFormat, PropsWithInfo } from "@kayelaa/zeyah";
 import { getStreamFromURL } from "@zeyah-bot/utils";
 
 export const CouldRead = module.register({
@@ -9,25 +8,25 @@ export const CouldRead = module.register({
   pluginNames: [],
   description:
     "Generates an 'if those kids could read they'd be very upset' meme.",
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="👁️ Could Read Meme"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
   async onCommand({ zeyahIO, args }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat
-          title="👁️ Could Read Meme"
-          fbContentFont="fancy"
-          fbTitleFont="bold"
-        >
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
     const meme = args.join(" ");
     if (!meme.trim()) {
-      await zeyahIO.reply(<Format>⚠️ Enter meme phrase to put.</Format>);
+      await zeyahIO.reply(<>⚠️ Enter meme phrase to put.</>);
       return;
     }
 
-    const searching = await zeyahIO.reply(<Format>🔎 Processing...</Format>);
+    const searching = await zeyahIO.reply(<>🔎 Processing...</>);
 
     const stream = await getStreamFromURL(
       "https://api.popcat.xyz/v2/couldread",
@@ -40,17 +39,11 @@ export const CouldRead = module.register({
 
     await zeyahIO.unsend(searching);
 
-    await zeyahIO
-      .reply(
-        <>
-          <Format>Here's the image:</Format>
-        </>,
-      )
-      .setAttachments([
-        {
-          name: "couldRead.png",
-          stream,
-        },
-      ]);
+    await zeyahIO.reply(<>Here's the image:</>).setAttachments([
+      {
+        name: "couldRead.png",
+        stream,
+      },
+    ]);
   },
 });

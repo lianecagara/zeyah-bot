@@ -1,4 +1,3 @@
-import Zeyah, { CassFormat, PropsWithInfo } from "@kayelaa/zeyah";
 import { ZeyahAdapter } from "@zeyah-bot/adapters/base";
 import axios from "axios";
 import Stream from "node:stream";
@@ -10,26 +9,26 @@ export const Pint = module.register({
   author: ["@lianecagara", "@pixabay"],
   pluginNames: [],
   description: "Searches pinterest.",
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="📷 Pinterest"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
   async onCommand({ zeyahIO, args }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat
-          title="📷 Pinterest"
-          fbContentFont="fancy"
-          fbTitleFont="bold"
-        >
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
     const query = args.join(" ");
     if (!query.trim()) {
-      await zeyahIO.reply(<Format>⚠️ Enter image to search.</Format>);
+      await zeyahIO.reply(<>⚠️ Enter image to search.</>);
       return;
     }
 
     const searching = await zeyahIO.reply(
-      <Format>🔎 Searching images, please wait...</Format>,
+      <>🔎 Searching images, please wait...</>,
     );
 
     const response = await axios.get("https://pixabay.com/api/", {
@@ -44,7 +43,7 @@ export const Pint = module.register({
     const hits = response.data?.hits;
 
     if (!hits?.length) {
-      await zeyahIO.reply(<Format>❌️ Failed to fetch image.</Format>);
+      await zeyahIO.reply(<>❌️ Failed to fetch image.</>);
       return;
     }
 
@@ -73,7 +72,7 @@ export const Pint = module.register({
     await zeyahIO
       .reply(
         <>
-          <Format>Here's the image:</Format>
+          <>Here's the image:</>
         </>,
       )
       .setAttachments(attachments);

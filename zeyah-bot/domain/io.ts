@@ -15,7 +15,7 @@
  * If this file is not from the repository above, treat it as potentially unsafe.
  */
 
-import { ZeyahElement } from "@kayelaa/zeyah";
+import Zeyah, { PropsWithInfo, ZeyahElement } from "@kayelaa/zeyah";
 import { AnyZeyahAdapterClass, ZeyahAdapter } from "@zeyah-bot/adapters/base";
 import {
   ZeyahEventOf,
@@ -60,6 +60,11 @@ export class ZeyahIO<Ev extends ZeyahInferredEvent> {
       (this as unknown as MessageZeyahIO).setReplyTo(this.event.messageID);
     }
   }
+
+  /**
+   * Dispatched Wrapper for **every** response. May or may not exist.
+   */
+  WrapperFC?: Zeyah.FC<PropsWithInfo>;
 
   static $instanceSymbol = Symbol("io_has_instance");
 

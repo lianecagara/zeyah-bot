@@ -21,7 +21,7 @@ import { UserDB, UsersDB } from "@zeyah-bot/database";
 import { ThemeName } from "@zeyah-utils/logger-themes";
 import Stream, { Readable } from "node:stream";
 import { BufferResolvable } from "discord.js";
-import { PlatformType } from "@kayelaa/zeyah";
+import Zeyah, { PlatformType, PropsWithInfo } from "@kayelaa/zeyah";
 
 // types.ts
 
@@ -43,6 +43,24 @@ export interface ZeyahCMD<PluginNames extends ValidPluginNames = []> {
    * It is **required** for a command to be valid.
    */
   emoji: string;
+  /**
+   * The **wrapper** Kayla component (jsx) for all zeyahIO dispatched body in the onCommand.
+   *
+   * This is used to apply styling and other jsx processing without manually wrapping every response.
+   *
+   * This will also **WORK** in command handler responses (like no-permission, and platform-exclusive.)
+   *
+   * THIS WILL NOT WORK FOR STRING LITERAL RESPONSE!!
+   *
+   * @example
+   *
+   * // do this to call the wrapper, any zeyah elements are allowed except other node type.
+   * zeyahIO.reply(<>Hello!</>)
+   *
+   * // not this.
+   * zeyahIO.reply("Hello!");
+   */
+  WrapperFC?: Zeyah.FC<PropsWithInfo>;
   /**
    * The **name** of the command, it **must** be unique.
    *

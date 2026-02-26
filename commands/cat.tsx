@@ -1,4 +1,3 @@
-import Zeyah, { CassFormat, PropsWithInfo } from "@kayelaa/zeyah";
 import { getStreamFromUrlFull } from "@zeyah-bot/utils";
 
 export const CouldRead = module.register({
@@ -8,19 +7,18 @@ export const CouldRead = module.register({
   author: ["@lianecagara", "@cataas.com"],
   pluginNames: [],
   description: "Cat as a Service. Random cats, MEOW.",
-  async onCommand({ zeyahIO, args }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat
-          title="🐈🎲 Random Cat"
-          fbContentFont="fancy"
-          fbTitleFont="bold"
-        >
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
-
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="🐈🎲 Random Cat"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
+  async onCommand({ zeyahIO }) {
     const result = await getStreamFromUrlFull(`https://cataas.com/cat`, {
       headers: {
         accept:
@@ -56,17 +54,11 @@ export const CouldRead = module.register({
       },
     });
 
-    await zeyahIO
-      .reply(
-        <>
-          <Format>MEOW!</Format>
-        </>,
-      )
-      .setAttachments([
-        {
-          name: result.pathName,
-          stream: result.stream,
-        },
-      ]);
+    await zeyahIO.reply(<>MEOW!</>).setAttachments([
+      {
+        name: result.pathName,
+        stream: result.stream,
+      },
+    ]);
   },
 });

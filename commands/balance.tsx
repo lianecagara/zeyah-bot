@@ -1,4 +1,4 @@
-import { Bold, Italic, List, ListItem, ZeyahJSX } from "@kayelaa/zeyah";
+import { Bold, Italic, List, ListItem } from "@kayelaa/zeyah";
 import { Breaks, Choice, Divider, Points, Random } from "@zeyah-bot/components";
 import { parseBetDecimal } from "@zeyah-utils";
 import Decimal from "decimal.js";
@@ -56,7 +56,7 @@ export const BalanceEvent = module.register({
             {top5.length === 0 ? (
               <Italic>Nothing here yet… the economy is lonely 😭</Italic>
             ) : (
-              top5.map((u, i) => (
+              top5.map((u) => (
                 <ListItem>
                   <Bold>{u.name}</Bold>
                   <br />

@@ -170,6 +170,8 @@ export async function handleCommand(
   // !!! required if currentCommand changes.
   command = ctxCmd.currentCommand;
 
+  zeyahIO.WrapperFC = command?.WrapperFC;
+
   if (command) {
     command.prefixMode ??= "required";
     if (!hasPrefix && command.prefixMode === "required") return;

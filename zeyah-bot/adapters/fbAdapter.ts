@@ -15,7 +15,7 @@
  * If this file is not from the repository above, treat it as potentially unsafe.
  */
 
-import { ZeyahElement } from "@kayelaa/zeyah";
+import { createElement, ZeyahElement } from "@kayelaa/zeyah";
 import { ZeyahAdapter } from "@zeyah-bot/adapters/base";
 import { ZeyahIO } from "@zeyah-bot/domain/io";
 import { AdapterRegistry } from "@zeyah-bot/registry";
@@ -128,7 +128,16 @@ export class Ws3FBAdapter extends ZeyahAdapter {
       process.nextTick(async () => {
         let normalBody =
           form.body instanceof ZeyahElement
-            ? form.body.renderFacebook()
+            ? (typeof facadeIO.WrapperFC === "function"
+                ? createElement(
+                    facadeIO.WrapperFC,
+                    {
+                      children: form.body,
+                    },
+                    "",
+                  )
+                : form.body
+              ).renderFacebook()
             : form.body;
         const validForm: MessageObject = {
           body: normalBody,

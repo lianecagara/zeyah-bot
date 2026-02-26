@@ -3,7 +3,7 @@
 <p align="center">
   <img alt="Node.js Support" src="https://img.shields.io/badge/Node.js-20.x-brightgreen.svg?style=flat-square">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.8.1-blue?style=flat-square">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.8.2-blue?style=flat-square">
 </p>
 
 **Zeyah Bot** is a next-generation, multi-platform bot framework built for TypeScript enthusiasts who demand precision, flexibility, and a superior developer experience. It allows you to build powerful bots for both **Facebook (via ws3-fca)** and **Discord (via discord.js)** using a single, unified codebase powered by **JSX**.
@@ -171,8 +171,7 @@ All commands live in the `commands/` directory. Zeyah supports several file exte
 This example demonstrates `Decimal.js` integration and inline listeners.
 
 ```tsx
-import { Bold } from "@kayelaa/zeyah";
-import { Points } from "@zeyah-bot/components";
+import { Points, Bold } from "@zeyah-bot/components";
 
 export const BetCommand = module.register({
   name: "bet",

@@ -1,5 +1,4 @@
-import { Bold } from "@kayelaa/zeyah";
-import { Points } from "@zeyah-bot/components";
+import { Points, Bold } from "@zeyah-bot/components";
 
 export const BetCommand = module.register({
   name: "bet",
@@ -32,7 +31,7 @@ export const BetCommand = module.register({
     sent.on("reply", async (replyIO, event) => {
       const balance = await userDB.getPoints(); // Refresh
       if (event.body.toLowerCase() === "yes") {
-        const win = Math.random() > 0.5;
+        const win = Math.random() > 0.2;
         const newBalance = win ? balance.add(amount) : balance.sub(amount);
         await userDB.setPoints(newBalance);
 

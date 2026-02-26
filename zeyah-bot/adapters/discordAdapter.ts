@@ -56,7 +56,12 @@ import {
   ZeyahMessageReaction,
   ZeyahMessageReplyEvent,
 } from "@zeyah-bot/types";
-import { createZeyahTree, ZeyahElement, ZeyahFiber } from "@kayelaa/zeyah";
+import {
+  createElement,
+  createZeyahTree,
+  ZeyahElement,
+  ZeyahFiber,
+} from "@kayelaa/zeyah";
 import { DiscordStateKey } from "@zeyah-bot/components";
 import { AdapterRegistry } from "@zeyah-bot/registry";
 import { formatList } from "@zeyah-utils";
@@ -243,7 +248,17 @@ export class DiscordAdapter extends ZeyahAdapter {
       let tree: ZeyahFiber<any> = null;
       let content = typeof form.body === "string" ? form.body : null;
       if (form.body instanceof ZeyahElement) {
-        tree = createZeyahTree(form.body);
+        tree = createZeyahTree(
+          typeof _facadeIO.WrapperFC === "function"
+            ? createElement(
+                _facadeIO.WrapperFC,
+                {
+                  children: form.body,
+                },
+                "",
+              )
+            : form.body,
+        );
         content = tree.render("discord").join("");
         const embedsPossible = (tree.states.get(DiscordStateKey) ??
           []) as EmbedBuilder[];

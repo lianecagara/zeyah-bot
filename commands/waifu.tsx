@@ -1,4 +1,3 @@
-import Zeyah, { CassFormat, PropsWithInfo } from "@kayelaa/zeyah";
 import { getContent, getStreamFromUrlFull } from "@zeyah-bot/utils";
 
 export const CouldRead = module.register({
@@ -8,16 +7,19 @@ export const CouldRead = module.register({
   author: ["@lianecagara", "@api.waifu.pics"],
   pluginNames: [],
   description: "Neko Waifu Pics! (For gooners.)",
-  async onCommand({ zeyahIO, args }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat title="💝🎲 Waifu" fbContentFont="fancy" fbTitleFont="bold">
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
-
-    const searching = await zeyahIO.reply(<Format>🔎 Processing...</Format>);
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="💝🎲 Waifu"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
+  async onCommand({ zeyahIO }) {
+    const searching = await zeyahIO.reply(<>🔎 Processing...</>);
 
     const { url } = await getContent<{ url: string }>(
       "https://api.waifu.pics/sfw/neko",
@@ -62,17 +64,11 @@ export const CouldRead = module.register({
 
     await zeyahIO.unsend(searching);
 
-    await zeyahIO
-      .reply(
-        <>
-          <Format>Category: Neko</Format>
-        </>,
-      )
-      .setAttachments([
-        {
-          name: result.pathName,
-          stream: result.stream,
-        },
-      ]);
+    await zeyahIO.reply(<>Category: Neko</>).setAttachments([
+      {
+        name: result.pathName,
+        stream: result.stream,
+      },
+    ]);
   },
 });

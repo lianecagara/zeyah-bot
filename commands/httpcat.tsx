@@ -1,4 +1,4 @@
-import Zeyah, { Bold, CassFormat, Code, PropsWithInfo } from "@kayelaa/zeyah";
+import { Bold, Code } from "@zeyah-bot/components";
 import { getStreamFromURL } from "@zeyah-bot/utils";
 import { HttpStatusCode } from "axios";
 
@@ -9,14 +9,18 @@ export const CouldRead = module.register({
   author: ["@lianecagara", "@http.cat"],
   pluginNames: [],
   description: "Generates a cat meme photo related to an HTTP Status code.",
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="🐈 HttpCat"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
   async onCommand({ zeyahIO, args }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat title="🐈 HttpCat" fbContentFont="fancy" fbTitleFont="bold">
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
     const rawInput = args.join(" ").trim();
 
     let code: number | null = null;
@@ -36,7 +40,7 @@ export const CouldRead = module.register({
     }
 
     if (code === null || !(code in HttpStatusCode)) {
-      await zeyahIO.reply(<Format>⚠️ Invalid Http Status Code.</Format>);
+      await zeyahIO.reply(<>⚠️ Invalid Http Status Code.</>);
       return;
     }
 
@@ -47,9 +51,7 @@ export const CouldRead = module.register({
     await zeyahIO
       .reply(
         <>
-          <Format>
-            <Bold>Code: </Bold> {code} (<Code>{codeName}</Code>)
-          </Format>
+          <Bold>Code: </Bold> {code} (<Code>{codeName}</Code>)
         </>,
       )
       .setAttachments([

@@ -1,4 +1,3 @@
-import Zeyah, { CassFormat, PropsWithInfo } from "@kayelaa/zeyah";
 import { getContent } from "@zeyah-bot/utils";
 
 export const Catfact = module.register({
@@ -8,16 +7,19 @@ export const Catfact = module.register({
   author: ["@lianecagara", "@popcat"],
   pluginNames: [],
   description: "I GIVE YU SUM RANOMIZED FACTS!!",
+  WrapperFC({ getChildrenString }) {
+    return (
+      <Comps.CassFormat
+        title="😺 LulCat Wisdom!"
+        fbContentFont="fancy"
+        fbTitleFont="bold"
+      >
+        {getChildrenString()}
+      </Comps.CassFormat>
+    );
+  },
   async onCommand({ zeyahIO }) {
-    const Format: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
-      return (
-        <CassFormat title="😺 Catfact" fbContentFont="fancy" fbTitleFont="bold">
-          {getChildrenString()}
-        </CassFormat>
-      );
-    };
-
-    const searching = await zeyahIO.reply(<Format>🔎 Processing...</Format>);
+    const searching = await zeyahIO.reply(<>🔎 Processing...</>);
 
     const {
       message: { fact },
@@ -27,9 +29,7 @@ export const Catfact = module.register({
 
     await zeyahIO.unsend(searching);
 
-    const searching2 = await zeyahIO.reply(
-      <Format>🔎 Processing (2)...</Format>,
-    );
+    const searching2 = await zeyahIO.reply(<>🔎 Processing (2)...</>);
 
     const {
       message: { text: catVer },
@@ -42,6 +42,6 @@ export const Catfact = module.register({
 
     await zeyahIO.unsend(searching2);
 
-    await zeyahIO.reply(<Format>{catVer}</Format>);
+    await zeyahIO.reply(<>{catVer}</>);
   },
 });
