@@ -6,143 +6,228 @@
   <img alt="Version" src="https://img.shields.io/badge/version-0.8.1-blue?style=flat-square">
 </p>
 
-**Zeyah Bot** is a powerful, multi-platform bot system designed for flexibility, precision, and a modern developer experience. It provides a unified framework to build bots for both **Facebook (via ws3-fca)** and **Discord (via discord.js)** using TypeScript and JSX.
+**Zeyah Bot** is a next-generation, multi-platform bot framework built for TypeScript enthusiasts who demand precision, flexibility, and a superior developer experience. It allows you to build powerful bots for both **Facebook (via ws3-fca)** and **Discord (via discord.js)** using a single, unified codebase powered by **JSX**.
 
-- [🚧 Setup](#-setup)
-- [💡 Why Zeyah Bot?](#-why-zeyah-bot)
-- [🛠️ Creating Commands](#️-creating-commands)
-- [📚 API Documentation](#-api-documentation)
+- [🚀 Why Migrate to Zeyah?](#-why-migrate-to-zeyah)
+- [🚧 Setup & Configuration](#-setup--configuration)
+- [📁 Command System](#-command-system)
+- [🛠️ Detailed API Documentation](#️-detailed-api-documentation)
 - [✨ Credits](#-credits)
 - [📜 License](#-license)
 
 <hr>
 
-## 🚧 Setup
+## 🚀 Why Migrate to Zeyah?
+
+Most bot frameworks are stuck in the past. Zeyah Bot brings modern web development patterns to the chat bot world.
+
+### 1. Unified JSX Rendering (The Unicode Killer)
+Stop hardcoding messy Unicode characters or Discord-specific Markdown. Zeyah uses a custom **JSX Rendering Engine**.
+- **On Discord**: Renders as Rich Embeds and standard Markdown.
+- **On Facebook**: Automatically converts your JSX elements into Unicode-styled text (Bold, Italic, etc.) and CasS formatting.
+- **Example**: `<Bold>Hello</Bold>` becomes **Hello** on Discord and `𝐇𝐞𝐥𝐥𝐨` on Facebook automatically.
+
+### 2. Infinite Precision with Decimal.js
+Standard JavaScript numbers fail when dealing with huge currency values or complex gambling math. Zeyah integrates `Decimal.js` at its core.
+- No more rounding errors.
+- Support for values up to $10^{308}$ and beyond.
+- Perfect for high-stakes gambling bots and complex economy systems.
+
+### 3. Inline Event Listeners (No more global mess)
+Tired of handling replies in a separate `onReply` method and losing context? Zeyah lets you listen to responses **directly inside your command logic**.
+- Chain interactions easily.
+- Keep state local to the command execution.
+- Auto-timeout management.
+
+### 4. Developer Ergonomics
+- **Smart Path Aliases**: Use `@zeyah-bot/*` and `@zeyah-utils` to avoid the `../../../../` nightmare.
+- **Multi-Command Files**: Register 1, 5, or 10 commands in a single `.tsx` file. Logical grouping has never been easier.
+- **ZeyahIO Facade**: A clean, high-level API that works identically across all platforms. `zeyahIO.reply()` is all you need.
+
+> [!TIP]
+> **Developer Experience:** We have invested heavily in JSDoc. Using an IDE like **VS Code** or platforms like **Replit** will give you full autocomplete, type checking, and instant documentation on hover.
+
+<hr>
+
+## 🚧 Setup & Configuration
 
 ### 1. Requirements
 - **Node.js 20.x** or higher.
-- Knowledge of **TypeScript** and **JSX**.
-- A Facebook account (for FB bot) or a Discord Bot Token (for Discord bot).
+- Knowledge of **TypeScript** and **JSX** (recommended).
+- A Facebook account or Discord Bot Token.
 
 ### 2. Installation
 ```bash
-git clone <your-repo-url>
-cd zeyah-bot-system
+git clone https://github.com/lianecagara/zeyah-bot
+cd zeyah-bot
 npm install
 ```
 
-### 3. Discord Configuration
-1. Create a bot on the [Discord Developer Portal](https://discord.com/developers/applications).
-2. Create a `.env` file in the root directory and add:
-   ```env
-   DISCORD_TOKEN=your_discord_bot_token
-   PREFIX=+
-   ```
+### 3. Platform Setup
+- **Discord**: Add `DISCORD_TOKEN` to your `.env` file.
+- **Facebook**: Export your `appState` (cookies) using an extension and save it as `fbstate.json` in the root directory.
 
-### 4. Facebook Configuration
-1. Obtain your `appState` (Facebook login cookies) using a browser extension like "c3c-fbstate".
-2. Save the content as `fbstate.json` in the project root.
-
-### 5. Customization
-Modify `zeyah.config.ts` to set your bot's design and features:
+### 4. Configuration
+Modify `zeyah.config.ts` to enable platforms and set themes:
 ```ts
 export default defineConfig({
-  DESIGN: {
-    Title: "Zeyah",
-    Admin: "Your Name",
-    Theme: "retro",
-  },
   useDiscord: true,
   useFacebook: true,
+  DESIGN: {
+    Title: "MyZeyah",
+    Admin: "AuthorName",
+    Theme: "retro", // Choose from blue, fiery, aqua, hacker, etc.
+  },
   // ...
 });
 ```
 
-### 6. Starting the Bot
-```bash
-npm start
-```
-
 <hr>
 
-## 💡 Why Zeyah Bot?
+## 📁 Command System
 
-Zeyah Bot is built to be superior to traditional bot frameworks by focusing on developer ergonomics and cross-platform consistency:
+All commands live in the `commands/` directory. Zeyah supports several file extensions:
+- `.tsx` (Recommended for full JSX and Type support)
+- `.ts`, `.js`, `.jsx`
 
-- **🚀 Smart Import Aliases**: Stop using messy relative paths like `../../utils`. Use `@zeyah-bot/*` and `@zeyah-utils` for clean, predictable imports.
-- **🎨 JSX Rendering Engine**: write your UI once using JSX. Zeyah automatically renders it as **Rich Embeds/Markdown** for Discord and **Unicode-styled text** for Facebook.
-- **📁 Multi-Command Files**: Don't limit yourself to one command per file. Zeyah allows you to register and export multiple commands from a single `.tsx` file.
-- **🔢 Infinite Precision with Decimal.js**: Most bots fail with large numbers. Zeyah uses `Decimal.js` for all currency, points, and gambling logic, allowing for infinite possible values and perfect mathematical precision.
-- **⚡ ZeyahIO Facade**: A powerful abstraction layer. Whether you're on Discord or FB, `zeyahIO` provides a consistent API for sending messages, replies, and handling errors with minimal code.
-- **👂 Inline Listeners**: Say goodbye to global `onReply` hooks. Zeyah allows you to listen to replies or reactions **inline** within your command handler using an event-driven approach.
+### Command Properties Reference
 
-<hr>
+| Property | Type | Required | Description |
+| :--- | :--- | :---: | :--- |
+| `name` | `string` | Yes | The unique identifier for the command. |
+| `emoji` | `string` | Yes | Icon used in help menus. |
+| `version` | `SemVer` | Yes | Semantic version (e.g., `1.0.0`). |
+| `author` | `string \| string[]` | Yes | GitHub username(s) starting with `@`. |
+| `onCommand` | `Function` | No* | Handle command execution. |
+| `aliases` | `string[]` | No | Alternative triggers. |
+| `role` | `CMDRole` | No | Permission level (Everyone, Moderator, Admin). |
+| `description` | `string` | No | Help text. |
+| `argGuide` | `string[]` | No | Argument format guide (e.g., `["<name>", "[age]"]`). |
+| `prefixMode` | `"required" \| "optional"`| No | Defaults to `"required"`. |
+| `platform` | `PlatformType` | No | Restrict command to a specific platform. |
 
-## 🛠️ Creating Commands
+*\*A command must have at least one handler: `onCommand`, `onEvent`, or `onMessage`.*
 
-Commands are registered using a structured interface that ensures type safety and consistency.
+### Example: High-Performance Economy Command
+This example demonstrates `Decimal.js` integration and inline listeners.
 
 ```tsx
 import { Bold, Italic } from "@kayelaa/zeyah";
+import { Points } from "@zeyah-bot/components";
+import Decimal from "decimal.js";
 
-export const Greet = module.register({
-  name: "greet",
-  emoji: "👋",
-  description: "Greets the user and waits for a response",
-  async onCommand({ zeyahIO }) {
-    // Send a message and get a handle for listeners
+export const BetCommand = module.register({
+  name: "bet",
+  emoji: "💰",
+  author: "@jules",
+  version: "1.0.0",
+  description: "Bet your points!",
+  async onCommand({ zeyahIO, userDB, args }) {
+    const balance = await userDB.getPoints(); // Returns Decimal
+    const amount = utils.parseBetDecimal(args[0], balance);
+
+    if (amount.lte(0) || amount.gt(balance)) {
+      return zeyahIO.reply(<>Invalid bet amount!</>);
+    }
+
     const sent = await zeyahIO.reply(
       <>
-        Hello! How are you <Bold>today</Bold>?
+        You are betting <Points n={amount} />.
+        Are you sure? Reply with <Bold>yes</Bold> to confirm.
       </>
     );
 
-    // Inline reply listener
-    sent.listenReplies({ timeout: 30000 }); // Listen for 30 seconds
+    // Inline Listener Edge Case: Handling context locally
+    sent.listenReplies({ timeout: 15000 });
     sent.on("reply", async (replyIO, event) => {
-      await replyIO.reply(<>I'm glad you are {event.body}!</>);
+      if (event.body.toLowerCase() === "yes") {
+        const win = Math.random() > 0.5;
+        const newBalance = win ? balance.add(amount) : balance.sub(amount);
+        await userDB.setPoints(newBalance);
+
+        await replyIO.reply(
+          win ? <>🎉 You won! New balance: <Points n={newBalance} /></>
+              : <>💀 You lost everything.</>
+        );
+      }
+      sent.stopListenReplies();
     });
   }
 });
 ```
 
+### Botpack / Mirai Compatibility
+If you are migrating from Botpack or Mirai, Zeyah can load your legacy scripts with a tiny tweak. Replace `module.exports` with `module.mirai`:
+
+```js
+// OLD: module.exports.config = { ... }
+// NEW:
+module.mirai.config = {
+  name: "legacy-cmd",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "Author",
+  description: "Legacy support",
+  commandCategory: "utility",
+  usages: "",
+  cooldowns: 5
+};
+
+module.mirai.run = async ({ api, event, args }) => {
+  // Your legacy code here
+};
+```
+
 <hr>
 
-## 📚 API Documentation
+## 🛠️ Detailed API Documentation
 
-### **ZeyahIO**
-The core interaction class for all commands.
+### **The ZeyahIO Facade**
+The `zeyahIO` object is passed to every command handler and is your primary way to talk back to the user.
 
-- **`reply(body)`**: Sends a reply to the message that triggered the command.
-- **`send(body)`**: Sends a message to the current thread without a direct reply link.
-- **`unsend(dispatched)`**: Removes a message previously sent by the bot.
-- **`error(err)`**: Formats and sends an error message to the user.
-- **`assertDangerousAPI(adapterClass)`**: Access the underlying platform API (e.g., `discord.js` Client) when platform-specific logic is needed.
+- **`reply(body)`**: The safest way to respond. Body can be a string or JSX.
+- **`send(body)`**: Send a message to the thread without quoting the user.
+- **`unsend(handle)`**: Remove a message.
+  ```ts
+  const msg = await zeyahIO.send("Wait for it...");
+  await utils.delay(2000);
+  await zeyahIO.unsend(msg);
+  ```
+- **`error(err)`**: Standardized error reporting.
+- **`assertDangerousAPI(adapterClass)`**: For when you absolutely need platform-specific features (e.g., Discord attachments or Facebook-specific thread tags).
 
-### **Utility Functions**
-Zeyah comes with a suite of built-in utilities:
-- **`randomInt(min, max)`**: Cryptographically secure random integers.
-- **`parseBetDecimal(arg, balance)`**: Parses complex bet strings like "50%", "allin", or "1.5k".
-- **`abbreviateNumberDecimal(value)`**: Formats huge numbers into readable strings (e.g., `1.5Qa`).
-- **`parallel(...tasks)`**: Simplified concurrent execution of async tasks.
+### **Built-in JSX Components**
+Zeyah components are designed for cross-platform beauty.
 
-### **Built-in Components**
-Enhance your bot's output with cross-platform components:
-- **`<Embed>`**: Renders as a Rich Embed on Discord and a formatted text block on Facebook.
-- **`<Random>`**: Wraps `<Choice>` components to randomly output one of its children.
-- **`<Points n={value} />`**: Specialized component for displaying currency with icons and abbreviations.
-- **`<Lang.Group>`**: Handles localization by rendering content based on the bot's configured language.
+- **`<Embed>`**:
+  ```tsx
+  <Embed>
+    <EmbedTitle>System Status</EmbedTitle>
+    <EmbedDescription>All systems operational.</EmbedDescription>
+    <EmbedFooter>Uptime: 99.9%</EmbedFooter>
+  </Embed>
+  ```
+- **`<Random>` / `<Choice>`**:
+  ```tsx
+  <Random>
+    <Choice>Hello there!</Choice>
+    <Choice>Hi!</Choice>
+    <Choice>Greetings, mortal.</Choice>
+  </Random>
+  ```
+- **`<Lang.Group>`**: Support for `en`, `tl`, `vi`, etc.
+- **`<DiscordMention event={event} />`**: Smart mention that resolves correctly on Discord.
 
 <hr>
 
 ## ✨ Credits
 *(Jsdoc fully written by jules with help of lianecagara)*
 
-- **Author**: Kayelaa Cagara (@lianecagara)
+- **Core Developer**: [Kayelaa Cagara (@lianecagara)](https://github.com/lianecagara)
 - **Framework**: @kayelaa/zeyah
-- **Utilities**: BotPack, Goat-Bot-V2
+- **Utilities**: Derived from BotPack and Goat-Bot-V2.
 
 <hr>
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+Licensed under the **MIT License**. Build something amazing!
