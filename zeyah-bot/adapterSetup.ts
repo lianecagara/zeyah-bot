@@ -43,7 +43,7 @@ export async function setup() {
       state = JSON.parse(process.env.FB_STATE);
     }
     const ws3Adapter = await Ws3FBAdapter.fromLogin(
-      { appState: fbState },
+      { appState: state },
       loginOptions,
     );
     registerAdapter("Facebook", ws3Adapter);
