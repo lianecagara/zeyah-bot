@@ -31,6 +31,7 @@ import {
   login,
   LoginCredentials,
   LoginOptions,
+  Message,
   MessageObject,
 } from "ws3-fca";
 export class Ws3FBAdapter extends ZeyahAdapter {
@@ -148,21 +149,26 @@ export class Ws3FBAdapter extends ZeyahAdapter {
             .map((i) => i?.stream)
             .filter(Boolean) as ReadStream[],
         };
-        (this.internalAPI.sendMessage as API["sendMessageMqtt"])(
-          validForm,
-          form.thread,
-          form.replyTo,
-          (err, info) => {
+        (
+          (this.internalAPI.sendMessage as API["sendMessageMqtt"])(
+            validForm,
+            form.thread,
+            form.replyTo,
+          ) as unknown as Promise<Message>
+        )
+          .then((info) => {
             return dispatched.__resolveResponse(
               {
                 messageID: info.messageID,
                 threadID: info.threadID,
                 timestamp: new Date(info.timestamp ?? Date.now()).getTime(),
               },
-              err,
+              null,
             );
-          },
-        );
+          })
+          .catch((err) => {
+            return dispatched.__resolveResponse(null, err);
+          });
       });
       return dispatched;
     } catch (error) {
