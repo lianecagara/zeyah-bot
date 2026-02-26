@@ -74,7 +74,7 @@ export class Ws3FBAdapter extends ZeyahAdapter {
   }
 
   onStartListen(): void {
-    this.internalAPI.listen((err, event) => {
+    (this.internalAPI.listenMqtt as API["listen"])((err, event) => {
       if (err) {
         console.error(err);
         return;
