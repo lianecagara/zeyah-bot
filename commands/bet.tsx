@@ -31,7 +31,7 @@ export const BetCommand = module.register({
     sent.on("reply", async (replyIO, event) => {
       const balance = await userDB.getPoints(); // Refresh
       if (event.body.toLowerCase() === "yes") {
-        const win = Math.random() > 0.2;
+        const win = Math.random() < 0.2;
         const newBalance = win ? balance.add(amount) : balance.sub(amount);
         await userDB.setPoints(newBalance);
 
