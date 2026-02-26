@@ -1,5 +1,10 @@
 import axios, { Axios, AxiosRequestConfig } from "axios";
 
+/**
+ * **convertHMS()** converts a number of seconds into a **HH:MM:SS** formatted string.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function convertHMS(value: string | number) {
   const sec = typeof value === "number" ? value : parseInt(value, 10);
   let hours: number | string = Math.floor(sec / 3600);
@@ -17,12 +22,22 @@ export function convertHMS(value: string | number) {
   return (hours != "00" ? hours + ":" : "") + minutes + ":" + seconds;
 }
 
+/**
+ * **removeSpecialChar()** removes non-ASCII characters from a string asynchronously.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function removeSpecialChar(str: string) {
   if (str === null || str === "") return false;
   else str = str.toString();
 
   return str.replace(/[^\x20-\x7E]/g, "");
 }
+/**
+ * **removeSpecialCharSync()** removes non-ASCII characters from a string synchronously.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function removeSpecialCharSync(str: string) {
   if (str === null || str === "") return false;
   else str = str.toString();
@@ -30,6 +45,11 @@ export function removeSpecialCharSync(str: string) {
   return str.replace(/[^\x20-\x7E]/g, "");
 }
 
+/**
+ * **cleanAnilistHTML()** cleans HTML tags and entities from Anilist descriptions and converts them to Markdown-like format.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function cleanAnilistHTML(text: string) {
   text = text
     .replace("<br>", "\n")
@@ -44,6 +64,11 @@ export function cleanAnilistHTML(text: string) {
   return text;
 }
 
+/**
+ * **downloadFile()** downloads a file from a URL and saves it to a local path.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function downloadFile(url: string, path: string) {
   const { createWriteStream } = require("fs");
 
@@ -63,6 +88,11 @@ export async function downloadFile(url: string, path: string) {
   });
 }
 
+/**
+ * **getContent()** fetches JSON content from a URL using Axios.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export async function getContent<T>(
   url: string,
   params: AxiosRequestConfig["params"] = {},
@@ -78,6 +108,11 @@ export async function getContent<T>(
   }
 }
 
+/**
+ * **randomString()** generates a random string of a specified length.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function randomString(length: number | string) {
   length = Number(length);
   var result = "";

@@ -3,16 +3,21 @@ import { v4 as uuidv4 } from "uuid";
 import { Datum } from "@nea-liane/styler";
 
 /**
- * Inventory Class for CassidySpectra
- * ------------
- * Simplifies management of items, etc.
- * @author lianecagara
+ * **Inventory** is a class from **@zeyah-bot/utils/inventory** that simplifies the management of in-game items.
+ *
+ * It provides methods for adding, deleting, grouping, and sanitizing items.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export class Inventory<T extends InventoryItem = InventoryItem> {
-  /** The maximum number of items the inventory can hold. */
+  /**
+   * The maximum number of items the inventory can hold.
+   */
   limit: number;
 
-  /** The array of items in the inventory. */
+  /**
+   * The array of items in the inventory.
+   */
   inv: T[];
 
   /**
@@ -108,6 +113,9 @@ export class Inventory<T extends InventoryItem = InventoryItem> {
     return this.inv.find((item) => item.key === key);
   }
 
+  /**
+   * Retrieves the **last** item matching the specified key.
+   */
   getOneLast(key: string | number): T | undefined {
     if (!key) return undefined;
     return this.inv.findLast((item) => item.key === key);
@@ -137,6 +145,9 @@ export class Inventory<T extends InventoryItem = InventoryItem> {
    * Retrieves all items matching the specified UUID.
    * @param id - The UUID to search for.
    * @returns An array of matching items.
+   */
+  /**
+   * Retrieves all items matching the specified **UUID**.
    */
   getByID(id: string) {
     return this.getBy("uuid", id);
@@ -756,6 +767,11 @@ export class Inventory<T extends InventoryItem = InventoryItem> {
   }
 }
 
+/**
+ * **Collectibles** is a class from **@zeyah-bot/utils/inventory** for managing stacks of collectible items.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export class Collectibles<T extends CollectibleItem = CollectibleItem> {
   #collectibles: T[];
 

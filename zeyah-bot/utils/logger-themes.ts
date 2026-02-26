@@ -3,27 +3,51 @@ import gradient, { Gradient } from "gradient-string";
 
 export type ThemeName = keyof typeof ThemeMap;
 
+/**
+ * **Theme** is an interface from **@zeyah-bot/utils/logger-themes** that defines the color scheme for terminal logging.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export interface Theme {
   /**
+   * The **main** color or gradient of the theme.
+   *
    * Referred as: **cra**
    */
   main: Gradient | Chalk;
   /**
+   * The **subcolor** color or gradient.
+   *
    * Referred as: **co**
    */
   subcolor: Gradient | Chalk;
   /**
+   * The **secondary** color or gradient.
+   *
    * Referred as: **cb**
    */
   secondary: Gradient | Chalk;
   /**
+   * The **tertiary** color or gradient.
+   *
    * Referred as: **cv**
    */
   tertiary: Gradient | Chalk;
+  /**
+   * The color used for **error** messages.
+   */
   error: Gradient | Chalk;
+  /**
+   * An array of **HTML** color strings associated with the theme.
+   */
   html: [string, string, string];
 }
 
+/**
+ * **ThemeMap** is a namespace from **@zeyah-bot/utils/logger-themes** that contains a collection of predefined logger themes.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export namespace ThemeMap {
   const make = (theme: Theme) => theme;
 

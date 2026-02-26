@@ -15,6 +15,9 @@ export const logger_old = pino({
   },
 });
 
+/**
+ * **logger** is an instance of **BotpackLogger** used for system-wide logging.
+ */
 export const logger = BotpackLogger;
 
 import figlet from "figlet";
@@ -31,6 +34,11 @@ const fontPath = path.join(process.cwd(), "zeyah-bot", "Pagga.flf");
 const font = readFileSync(fontPath, "utf8");
 figlet.parseFont("pagga", font);
 
+/**
+ * **showFinalBanner()** displays the bot's startup banner in the console.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export function showFinalBanner() {
   const logo = figlet.textSync(config.DESIGN.Title ?? "ZeyahBot", {
     font: "pagga",

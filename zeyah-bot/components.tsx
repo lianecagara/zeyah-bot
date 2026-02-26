@@ -28,14 +28,32 @@ import {
   shuffle,
 } from "@zeyah-utils";
 
+/**
+ * **RandomProps** defines the properties for the **Random** component.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export interface RandomProps {
+  /**
+   * The **t** value used for random selection (0-1).
+   */
   t?: number;
 }
 
+/**
+ * **StrictZeyahChildren** is a type that ensures children have a specific fiber type.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export type StrictZeyahChildren<T> = Omit<ZeyahChildren, "fiber"> & {
   fiber: ZeyahFiber<T>;
 };
 
+/**
+ * **Random** is a component from **@zeyah-bot/components** that randomly renders one of its **Choice** children.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Random: Zeyah.FC<PropsWithInfo<RandomProps>> = ({
   t = random56Bit(),
   childrenData,
@@ -60,10 +78,23 @@ export const Random: Zeyah.FC<PropsWithInfo<RandomProps>> = ({
 };
 Random.displayName = "Random";
 
+/**
+ * **ChoiceProps** defines the properties for the **Choice** component.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export interface ChoiceProps {
+  /**
+   * The **weight** of this choice when used inside a **Random** component.
+   */
   weight?: number;
 }
 
+/**
+ * **Choice** is a component from **@zeyah-bot/components** used to define a selectable option within a **Random** or **Shuffle** component.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Choice: Zeyah.FC<PropsWithInfo<ChoiceProps>> = ({
   childrenString,
 }) => {
@@ -72,6 +103,11 @@ export const Choice: Zeyah.FC<PropsWithInfo<ChoiceProps>> = ({
 
 Choice.displayName = "Choice";
 
+/**
+ * **Shuffle** is a component from **@zeyah-bot/components** that renders its **Choice** children in a random order.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Shuffle: Zeyah.FC<PropsWithInfo> = ({ childrenData }) => {
   const elements = childrenData.filter(
     (i) =>
@@ -82,6 +118,11 @@ export const Shuffle: Zeyah.FC<PropsWithInfo> = ({ childrenData }) => {
 };
 Shuffle.displayName = "Shuffle";
 
+/**
+ * **Breaks** is a component from **@zeyah-bot/components** that renders multiple **Break** elements.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Breaks: Zeyah.FC<PropsWithInfo<{ n: number }>> = ({ n }) => {
   return (
     <Repeated times={n}>
@@ -90,20 +131,40 @@ export const Breaks: Zeyah.FC<PropsWithInfo<{ n: number }>> = ({ n }) => {
   );
 };
 
+/**
+ * **JSONStr** is a component from **@zeyah-bot/components** that renders a JSON-stringified representation of the provided data.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const JSONStr: Zeyah.FC<
   PropsWithInfo<{ data: any; indent?: number }>
 > = ({ data, indent = 2 }) => {
   return JSON.stringify(data, null, indent);
 };
 
+/**
+ * **EmbedTitle** defines the title of an **Embed**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const EmbedTitle: Zeyah.FC<PropsWithInfo> = ({ childrenString }) =>
   childrenString;
 EmbedTitle.displayName = "EmbedTitle";
 
+/**
+ * **EmbedDescription** defines the description of an **Embed**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const EmbedDescription: Zeyah.FC<PropsWithInfo> = ({ childrenString }) =>
   childrenString;
 EmbedDescription.displayName = "EmbedDescription";
 
+/**
+ * **EmbedFooter** defines the footer of an **Embed**.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const EmbedFooter: Zeyah.FC<PropsWithInfo<{ iconURL?: string }>> = ({
   childrenString,
 }) => childrenString;
@@ -121,6 +182,13 @@ import { getConfig } from "@zeyah-bot/registry";
 
 export const DiscordStateKey = "discordEmbeds";
 
+/**
+ * **Embed** is a component from **@zeyah-bot/components** that renders a rich embed (Discord) or formatted text (Facebook).
+ *
+ * It uses **EmbedTitle**, **EmbedDescription**, and **EmbedFooter** as children.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Embed: Zeyah.FC<PropsWithInfo> = ({
   childrenData,
   rootFiber,
@@ -194,6 +262,11 @@ export const Embed: Zeyah.FC<PropsWithInfo> = ({
 
 Embed.displayName = "DiscordEmbed";
 
+/**
+ * **Conditional** is a component from **@zeyah-bot/components** that renders its children only if the **if** condition is met.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Conditional: Zeyah.FC<PropsWithInfo<{ if(): boolean }>> = ({
   if: if_,
   getChildrenString,
@@ -206,6 +279,11 @@ export const Conditional: Zeyah.FC<PropsWithInfo<{ if(): boolean }>> = ({
 
 Conditional.displayName = "Conditional";
 
+/**
+ * **DiscordMention** is a component from **@zeyah-bot/components** that renders a Discord mention for the event sender.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const DiscordMention: Zeyah.FC<
   PropsWithInfo<{
     event: ZeyahMessageOrReply;
@@ -213,6 +291,11 @@ export const DiscordMention: Zeyah.FC<
 > = ({ event }) => {
   return `<@${event.senderID}>`;
 };
+/**
+ * **Points** is a component from **@zeyah-bot/components** that formats and renders a point value with an emoji and "Pts." suffix.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Points: Zeyah.FC<PropsWithInfo<{ n: number | Decimal }>> = ({
   n,
 }) => {
@@ -235,6 +318,11 @@ export const Points: Zeyah.FC<PropsWithInfo<{ n: number | Decimal }>> = ({
   );
 };
 
+/**
+ * **DecimalNode** is a component from **@zeyah-bot/components** that formats and renders a **Decimal** value with commas and abbreviations.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const DecimalNode: Zeyah.FC<PropsWithInfo<{ n: number | Decimal }>> = ({
   n,
 }) => {
@@ -255,6 +343,11 @@ export const DecimalNode: Zeyah.FC<PropsWithInfo<{ n: number | Decimal }>> = ({
   );
 };
 
+/**
+ * **ResIDontKnow** is a component from **@zeyah-bot/components** that renders a random "I don't know" response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResIDontKnow: Zeyah.FC = () => {
   return (
     <Random>
@@ -294,6 +387,11 @@ export const ResIDontKnow: Zeyah.FC = () => {
 
 ResIDontKnow.displayName = "IDontKnow";
 
+/**
+ * **ResFailed** is a component from **@zeyah-bot/components** that renders a random failure response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResFailed: Zeyah.FC = () => {
   return (
     <Random>
@@ -333,6 +431,11 @@ export const ResFailed: Zeyah.FC = () => {
 
 ResFailed.displayName = "Failed";
 
+/**
+ * **ResSuccess** is a component from **@zeyah-bot/components** that renders a random success response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResSuccess: Zeyah.FC = () => {
   return (
     <Random>
@@ -372,6 +475,11 @@ export const ResSuccess: Zeyah.FC = () => {
 
 ResSuccess.displayName = "Success";
 
+/**
+ * **ResWrongInput** is a component from **@zeyah-bot/components** that renders a random "invalid input" response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResWrongInput: Zeyah.FC = () => {
   return (
     <Random>
@@ -411,6 +519,11 @@ export const ResWrongInput: Zeyah.FC = () => {
 
 ResWrongInput.displayName = "WrongInput";
 
+/**
+ * **ResPermissionDenied** is a component from **@zeyah-bot/components** that renders a random "permission denied" response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResPermissionDenied: Zeyah.FC = () => (
   <Random>
     <Choice>Permission denied.</Choice>
@@ -426,6 +539,11 @@ export const ResPermissionDenied: Zeyah.FC = () => (
 
 ResPermissionDenied.displayName = "PermissionDenied";
 
+/**
+ * **ResMissingArgs** is a component from **@zeyah-bot/components** that renders a random "missing arguments" response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResMissingArgs: Zeyah.FC = () => (
   <Random>
     <Choice>Missing required arguments.</Choice>
@@ -442,6 +560,11 @@ export const ResMissingArgs: Zeyah.FC = () => (
 );
 ResMissingArgs.displayName = "MissingArgs";
 
+/**
+ * **ResNotFound** is a component from **@zeyah-bot/components** that renders a random "not found" response.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const ResNotFound: Zeyah.FC = () => (
   <Random>
     <Choice>Not found.</Choice>
@@ -479,6 +602,11 @@ export const ResNotFound: Zeyah.FC = () => (
 
 ResNotFound.displayName = "NotFound";
 
+/**
+ * **JoinNode** is a component from **@zeyah-bot/components** that joins its children's rendered output with a separator.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const JoinNode: Zeyah.FC<PropsWithInfo<{ by?: string }>> = ({
   childrenData,
   by = "\n",
@@ -486,7 +614,15 @@ export const JoinNode: Zeyah.FC<PropsWithInfo<{ by?: string }>> = ({
   return childrenData.map((i) => i.rendered).join(by);
 };
 
+/**
+ * **Lang** is a namespace from **@zeyah-bot/components** for localization-related components.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export namespace Lang {
+  /**
+   * **Group** is a component that renders the **Type** child matching the current bot language.
+   */
   export const Group: Zeyah.FC<PropsWithInfo> = ({ childrenData }) => {
     const config = getConfig();
     let valids = childrenData.filter(
@@ -511,6 +647,9 @@ export namespace Lang {
     type: LanguageTypeWithFallback;
   }
 
+  /**
+   * **Type** defines localized content for a specific language.
+   */
   export const Type: Zeyah.FC<PropsWithInfo<Type>> = ({
     getChildrenString,
   }) => {
@@ -530,6 +669,11 @@ export const DividerType: {
   parallelogram: "▱▱▱▱▱▱▱▱▱▱▱",
 };
 
+/**
+ * **Divider** is a component from **@zeyah-bot/components** that renders a visual separator.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const Divider: Zeyah.FC<
   PropsWithInfo<{ break?: boolean; type?: DividerType }>
 > = ({ break: break_ = true, type = "classic" }) => {
@@ -537,6 +681,11 @@ export const Divider: Zeyah.FC<
   return !break_ ? r.trim() : r;
 };
 
+/**
+ * **KakkoQuote** renders content inside Japanese corner brackets 『 』.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const KakkoQuote: Zeyah.FC<PropsWithInfo> = ({ getChildrenString }) => {
   return <>『 {getChildrenString} 』</>;
 };
@@ -733,6 +882,11 @@ export namespace Semantics {
   Title.displayName = "Semantics.Footer";
 }
 
+/**
+ * **NicaHeader** is a component from **@zeyah-bot/components** that renders a header with a user icon and name.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export const NicaHeader: Zeyah.FC<PropsWithInfo<{ name: string }>> = ({
   getChildrenString,
   name = "???",
@@ -750,6 +904,11 @@ export const NicaHeader: Zeyah.FC<PropsWithInfo<{ name: string }>> = ({
  * Hey, Credits: Mrkimsters / Symer
  * ===
  * I literally stole this design from **Astral** hehe.
+ */
+/**
+ * **AstralHelpOption** is a component from **@zeyah-bot/components** that renders a formatted help option for a command.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
  */
 export const AstralHelpOption: Zeyah.FC<
   PropsWithInfo<{

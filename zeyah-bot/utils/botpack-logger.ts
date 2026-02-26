@@ -7,7 +7,15 @@ import { Theme, ThemeMap } from "@zeyah-utils/logger-themes";
 import { getConfig } from "@zeyah-bot/registry";
 const con = getConfig();
 
+/**
+ * **BotpackLogger** is a namespace from **@zeyah-bot/utils/botpack-logger** that provides methods for themed terminal logging.
+ *
+ * *(Jsdoc fully written by jules with help of lianecagara)*
+ */
 export namespace BotpackLogger {
+  /**
+   * **getThemeColors()** returns the theme colors defined in the bot configuration.
+   */
   export function getThemeColors(): Theme {
     const theme = con.DESIGN.Theme;
     return ThemeMap[theme] ?? null;
@@ -22,6 +30,9 @@ export namespace BotpackLogger {
     return `[ ${type.toUpperCase()} ] `;
   }
 
+  /**
+   * **log()** prints a message to the console with an optional type prefix.
+   */
   export function log(text: string): void;
   export function log(text: string, type: LogType): void;
   export function log(text: string, type: string): void;
@@ -53,28 +64,43 @@ export namespace BotpackLogger {
     }
   }
 
+  /**
+   * **themed()** prints a message using the subcolor of the current theme.
+   */
   export function themed(text: string) {
     const colors = theme();
     process.stderr.write(colors.subcolor(`\r${text}`) + "\n");
   }
 
+  /**
+   * **error()** prints an error stack or inspection to the console.
+   */
   export function error(error: unknown, type: string) {
     let text = error instanceof Error ? error.stack : inspect(error);
     process.stderr.write(chalk.hex("#ff0000")(`[ ${type} ] `) + text + "\n");
   }
 
+  /**
+   * **err()** prints a themed error message.
+   */
   export function err(text: string, type: string) {
     process.stderr.write(
       getThemeColors().subcolor(`[ ${type} ] `) + text + "\n",
     );
   }
 
+  /**
+   * **warn()** prints a themed warning message.
+   */
   export function warn(text: string, type: string) {
     process.stderr.write(
       getThemeColors().subcolor(`\r[ ${type} ] `) + text + "\n",
     );
   }
 
+  /**
+   * **loader()** prints system-level messages related to loading and initialization.
+   */
   export function loader(data: string, option: LoaderOption = "default") {
     const theme = getThemeColors();
 
