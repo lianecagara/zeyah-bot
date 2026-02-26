@@ -20,7 +20,7 @@ const loginOptions: LoginOptions = {
 };
 
 export async function setup() {
-  if (0) {
+  if (config.useFacebook) {
     const ws3Adapter = await Ws3FBAdapter.fromLogin(
       { appState: fbState },
       loginOptions,
@@ -29,7 +29,7 @@ export async function setup() {
   }
   const discordToken = config.discordToken ?? "";
 
-  if (discordToken) {
+  if (discordToken && config.useDiscord) {
     try {
       const discordAdapter = new DiscordAdapter(discordToken);
       registerAdapter("Discord", discordAdapter);

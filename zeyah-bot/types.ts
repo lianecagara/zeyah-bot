@@ -17,7 +17,7 @@ import { PlatformType } from "@kayelaa/zeyah";
  *
  * *(Jsdoc fully written by jules with help of lianecagara)*
  */
-export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
+export interface ZeyahCMD<PluginNames extends ValidPluginNames = []> {
   /**
    * The **emoji** of the command.
    *
@@ -114,7 +114,7 @@ export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
    *
    * For the properties available in the **ctx**, refer to {@link ZeyahCMDCTX}
    */
-  onCommand?(ctx: OnCommandCTX<PluginNames>): Promise<void>;
+  onCommand?(ctx: OnCommandCTX<PluginNames>): Promise<any>;
   /**
    * This is the **onEvent** handle.
    *
@@ -130,7 +130,7 @@ export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
    *
    * For the properties available in the **ctx**, refer to {@link ZeyahEventCTX}
    */
-  onEvent?(ctx: PluginMergeContext<ZeyahEventCTX, PluginNames>): Promise<void>;
+  onEvent?(ctx: PluginMergeContext<ZeyahEventCTX, PluginNames>): Promise<any>;
   /**
    * This is the **onMessage** handle.
    *
@@ -146,14 +146,14 @@ export interface ZeyahCMD<PluginNames extends ValidPluginNames> {
    */
   onMessage?(
     ctx: PluginMergeContext<ZeyahMessageCTX, PluginNames>,
-  ): Promise<void>;
+  ): Promise<any>;
 
   /**
    * The names of the **plugins** this command depends on.
    *
    * These plugins must be registered in the system for the command to work.
    */
-  pluginNames: readonly [...PluginNames];
+  pluginNames?: readonly [...PluginNames];
 
   /**
    * Custom **configuration** for the plugins used by this command.

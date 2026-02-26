@@ -112,9 +112,8 @@ All commands live in the `commands/` directory. Zeyah supports several file exte
 This example demonstrates `Decimal.js` integration and inline listeners.
 
 ```tsx
-import { Bold, Italic } from "@kayelaa/zeyah";
+import { Bold } from "@kayelaa/zeyah";
 import { Points } from "@zeyah-bot/components";
-import Decimal from "decimal.js";
 
 export const BetCommand = module.register({
   name: "bet",
@@ -132,27 +131,33 @@ export const BetCommand = module.register({
 
     const sent = await zeyahIO.reply(
       <>
-        You are betting <Points n={amount} />.
-        Are you sure? Reply with <Bold>yes</Bold> to confirm.
-      </>
+        You are betting <Points n={amount} />. Are you sure? Reply with{" "}
+        <Bold>yes</Bold> to confirm.
+      </>,
     );
 
     // Inline Listener Edge Case: Handling context locally
     sent.listenReplies({ timeout: 15000 });
     sent.on("reply", async (replyIO, event) => {
+      const balance = await userDB.getPoints(); // Refresh
       if (event.body.toLowerCase() === "yes") {
         const win = Math.random() > 0.5;
         const newBalance = win ? balance.add(amount) : balance.sub(amount);
         await userDB.setPoints(newBalance);
 
         await replyIO.reply(
-          win ? <>🎉 You won! New balance: <Points n={newBalance} /></>
-              : <>💀 You lost everything.</>
+          win ? (
+            <>
+              🎉 You won! New balance: <Points n={newBalance} />
+            </>
+          ) : (
+            <>💀 You lost everything.</>
+          ),
         );
       }
       sent.stopListenReplies();
     });
-  }
+  },
 });
 ```
 
@@ -201,19 +206,19 @@ Zeyah components are designed for cross-platform beauty.
 
 - **`<Embed>`**:
   ```tsx
-  <Embed>
+  zeyahIO.reply(<Embed>
     <EmbedTitle>System Status</EmbedTitle>
     <EmbedDescription>All systems operational.</EmbedDescription>
     <EmbedFooter>Uptime: 99.9%</EmbedFooter>
-  </Embed>
+  </Embed>);
   ```
 - **`<Random>` / `<Choice>`**:
   ```tsx
-  <Random>
+  zeyahIO.reply(<Random>
     <Choice>Hello there!</Choice>
     <Choice>Hi!</Choice>
     <Choice>Greetings, mortal.</Choice>
-  </Random>
+  </Random>);
   ```
 - **`<Lang.Group>`**: Support for `en`, `tl`, `vi`, etc.
 - **`<DiscordMention event={event} />`**: Smart mention that resolves correctly on Discord.
