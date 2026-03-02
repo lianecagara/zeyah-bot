@@ -18,7 +18,6 @@ export const Help = module.register({
   author: "@lianecagara",
   description: "Your typical help list.",
   version: "1.0.1",
-  prefixMode: "optional",
   aliases: ["h", "menu", "guide", "how"],
   async onCommand({ args, zeyahIO, commandName, currentPrefix }) {
     const commands = getCallableCommands();

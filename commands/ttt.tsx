@@ -8,7 +8,7 @@ import { pickRandom, shuffle } from "@zeyah-utils";
 export const TttEvent = module.register({
   emoji: "⭕",
   name: "ttt",
-  version: "1.1.0",
+  version: "1.1.1",
   author: "@lianecagara",
   description: "Play TicTacToe vs AI",
 
@@ -31,7 +31,7 @@ export const TttEvent = module.register({
       </>
     );
 
-    const BASE_REWARD = 20_000;
+    const BASE_REWARD = 3_000;
     const DRAW_REWARD = 3_000;
 
     const letterMap: Record<string, number> = {

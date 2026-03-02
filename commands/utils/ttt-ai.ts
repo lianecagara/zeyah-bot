@@ -250,7 +250,7 @@ export class TictactoeAI {
   }
 
   makeAiMove(): Move | null {
-    if (random56Bit() < this.noiseChance) {
+    if (random56Bit() < this.noiseChance && 0) {
       const moves = this.getSortedMoves(this.board);
       const randomMove = moves[Math.floor(random56Bit() * moves.length)];
 

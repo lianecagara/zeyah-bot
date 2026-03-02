@@ -22,7 +22,6 @@ export const Help = module.register({
   author: ["@lianecagara", "@mrkimstersdev"],
   description: "Your typical help list.",
   version: "2.0.0",
-  prefixMode: "optional",
   aliases: ["h", "menu", "guide", "how"],
   async onCommand({ args, zeyahIO, commandName, currentPrefix }) {
     const commands = getCallableCommands().sort((a, b) =>
