@@ -979,4 +979,11 @@ export class PageSlicer<T> {
   }
 }
 
-export * from "./unsafes";
+export {
+  DLResult,
+  FBInfo,
+  downloadFacebookVideo,
+  facebookLinkRegex,
+  getFBInfo,
+} from "./unsafes";
+export * from "./inventory";
