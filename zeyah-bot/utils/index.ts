@@ -908,6 +908,9 @@ export class ReflectiveMap<T extends AnyObject> implements Map<
  *
  * *(Jsdoc fully written by jules with help of lianecagara)*
  */
+/**
+ * PageSlicer is a utility class for paginating arrays of data.
+ */
 export class PageSlicer<T> {
   private readonly data: readonly T[];
   private readonly perPage: number;
@@ -929,40 +932,42 @@ export class PageSlicer<T> {
     return this.data.length;
   }
 
+  /**
+   * Normalize page into 1-based safe page number.
+   */
   private normalizePage(input: string | number): number {
     const parsed =
       typeof input === "string" ? Number.parseInt(input, 10) : input;
 
-    if (!Number.isFinite(parsed) || parsed < 0) {
-      return 0;
-    }
+    if (!Number.isFinite(parsed)) return 1;
 
-    return Math.floor(parsed);
+    const floored = Math.floor(parsed);
+
+    if (floored < 1) return 1;
+    if (floored > this.totalPages) return this.totalPages;
+
+    return floored;
   }
 
-  private clampPage(page: number): number {
-    if (page >= this.totalPages) {
-      return this.totalPages - 1;
-    }
-    return page;
+  private getSliceRange(page1Based: number) {
+    const zeroBased = page1Based - 1;
+
+    const start = zeroBased * this.perPage;
+    const end = start + this.perPage;
+
+    return { start, end };
   }
 
   public slice(page: string | number): T[] {
-    const normalized = this.normalizePage(page);
-    const safePage = this.clampPage(normalized);
-
-    const start = safePage * this.perPage;
-    const end = start + this.perPage;
+    const safePage = this.normalizePage(page);
+    const { start, end } = this.getSliceRange(safePage);
 
     return this.data.slice(start, end);
   }
 
   public page(page: string | number) {
-    const normalized = this.normalizePage(page);
-    const safePage = this.clampPage(normalized);
-
-    const start = safePage * this.perPage;
-    const end = start + this.perPage;
+    const safePage = this.normalizePage(page);
+    const { start, end } = this.getSliceRange(safePage);
 
     return {
       page: safePage,
