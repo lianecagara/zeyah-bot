@@ -32,19 +32,43 @@ export function createEvalTsx(tsconfigPath: string) {
     path.dirname(tsconfigPath),
   );
 
-  return (code: string) => {
+  return (code: string, moreContext: Record<string, any> = {}) => {
+    const context = {
+      ...moreContext,
+
+      require,
+      module,
+      exports,
+
+      global,
+      globalThis,
+
+      process,
+      Buffer,
+
+      setTimeout,
+      setInterval,
+      clearTimeout,
+      clearInterval,
+
+      __dirname,
+      __filename,
+    };
+    const contextKeys = Object.keys(context);
+    const contextValues = Object.values(context);
+
     const output = ts.transpileModule(code, {
-      compilerOptions: {
-        ...parsed.options,
-      },
+      compilerOptions: parsed.options,
       fileName: "virtual.tsx",
     }).outputText;
 
-    return Function(output)();
+    const fn = Function(...contextKeys, output);
+
+    return fn(...contextValues);
   };
 }
 
 /**
  * **evalTsx** is a default instance of the evaluator using the project's root directory.
  */
-export const evalTsx = createEvalTsx(HOME_DIR);
+export const evalTsx = createEvalTsx(path.join(HOME_DIR, "tsconfig.json"));

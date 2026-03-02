@@ -9,7 +9,7 @@ export default defineConfig({
     Admin: "YOUR_NAME",
     Theme: "retro",
   },
-  adminBot: ["1234346521881739307"],
+  adminBot: ["1234346521881739307", "100075058221244"],
   moderatorBot: [],
   prefixes: [process.env.PREFIX ?? "+"],
   useDiscord: true,

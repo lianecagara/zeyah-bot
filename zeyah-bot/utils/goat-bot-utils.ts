@@ -179,8 +179,7 @@ export function getExtFromUrl(url: string = "") {
 export function removeHomeDir(fullPath: string) {
   if (!fullPath || typeof fullPath !== "string")
     throw new Error("The first argument (fullPath) must be a string");
-  while (fullPath.includes(process.cwd()))
-    fullPath = fullPath.replace(process.cwd(), "");
+  fullPath = fullPath.replaceAll(process.cwd(), "");
   return fullPath;
 }
 

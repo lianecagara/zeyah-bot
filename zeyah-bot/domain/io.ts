@@ -28,6 +28,7 @@ import {
   ZeyahMessageEvent,
   ZeyahMessageOrReply,
 } from "@zeyah-bot/types";
+import { removeHomeDir } from "@zeyah-bot/utils";
 import { inspect } from "node:util";
 
 /**
@@ -333,7 +334,7 @@ export class ZeyahIO<Ev extends ZeyahInferredEvent> {
     if (typeof error === "string") {
       error = new Error(`${error}`);
     }
-    const errMsg = this.formatError(error);
+    const errMsg = removeHomeDir(this.formatError(error));
     return this.reply(errMsg);
   }
 
