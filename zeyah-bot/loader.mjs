@@ -16,7 +16,7 @@ export const load = async (url, context, nextLoad) => {
   const instanceId = v4();
   const symbolName_ = `zm_${Date.now()}_${Math.random().toString(36).slice(2)}`;
 
-  const dirnameInit = `import { Module as ${symbolName_} } from "module";var __filename = ${JSON.stringify(fileURLToPath(url))}; var __dirname = ${JSON.stringify(dirname(fileURLToPath(url)))}; var module = new ${symbolName_}(${JSON.stringify(instanceId)});;`;
+  const dirnameInit = `import { Module as ${symbolName_} } from "module";var __filename = ${JSON.stringify(fileURLToPath(url))}; var __dirname = ${JSON.stringify(dirname(fileURLToPath(url)))}; var module = new ${symbolName_}(${JSON.stringify(instanceId)});module.filename=__filename;;`;
 
   const src = dirnameInit + result.source;
 

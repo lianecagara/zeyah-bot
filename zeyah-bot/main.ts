@@ -60,6 +60,7 @@ async function main() {
   App.listen(8000, () => {
     logger.log("Server listening to 8000.");
   });
+  console.log({ module, hub: module.hub, meta: module.meta });
 }
 
 main();
