@@ -171,9 +171,9 @@ export function register<T extends ValidPluginNames>(
       "Some argument guide in the command is malformed, each arg guide could start and end with <, > or [, ] respectively.",
     );
   }
-  typeMustBeOptional(cmd.onCommand, "object", "non-arrow-function");
-  typeMustBeOptional(cmd.onEvent, "non-arrow-function");
-  typeMustBeOptional(cmd.onMessage, "non-arrow-function");
+  typeMustBeOptional(cmd.onCommand, "object", "function");
+  typeMustBeOptional(cmd.onEvent, "function");
+  typeMustBeOptional(cmd.onMessage, "function");
 
   if (!cmd.onCommand && !cmd.onEvent && !cmd.onMessage) {
     throw new Error(`Command "${cmd.name}" has no handlers`);
