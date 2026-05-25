@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import { createRequire } from "node:module";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const entry = resolve(__dirname, "main.ts");
+const entry = resolve(__dirname, "main.tsx");
 const RESTART_CODE = 69;
 
 let child: ChildProcess;

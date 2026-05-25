@@ -12,6 +12,6 @@
     "zeyah.config.ts",
     "adapterSetup.ts",
     "zeyah-bot/global.d.ts",
-    "zeyah-bot/main.ts"
+    "zeyah-bot/main.tsx"
   ]
 }
